@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    --colorB1: #214979;
+    color: var(--colorB1);
+}
+
+body{
+    font-family: 'Poppins', sans-serif;   
+    background: url(../img/difuminado2.jpg);
+    
+}
+.menu__logo{
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    border-right: #a5c1fa solid 1.5px;
+    margin-bottom: 0;
+    padding-right: 27px;
+    
+}
+
+.menu__topic{
+    color: #214979;
+    position: relative;
+    right: 217px;
+    margin-bottom: 0;
+}
+
+/*nav*/
+.menu{
+    filter: none;
+    max-width: 85%;
+    margin: auto;
+    background-color: transparent;
+    height: 60px;
+    border-bottom: #a5c1fa 1.5px solid;
+}
+
+/*nav section*/
+.menu__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/*nav section ul*/
+.menu__links{
+    height: 100%;
+    transition: transform .5s;
+    display: flex;
+}
+
+/*nav section ul li*/
+.menu__item{
+    list-style: none;
+    position: relative;
+    height: 100%;
+    --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+    --transform: rotate(-90deg);
+}
+
+.menu__item:hover{
+    --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    --transform: rotate(0);
+}
+/*nav section ul li*/
+.menu__link{
+    text-decoration: none;
+    padding: 0 30px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    font-size: 19px;
+    margin-top: 8px;
+}
+
+.menu__link:hover{
+    background-color: #a5c1fa;
+}
+
+/*Form*/
+
+.contenedor {
+    filter: blur(0);
+    margin: auto;
+    max-width: 450px;
+    /*box-shadow: 5px 10px 10px 1px #667;*/
+    /*background: rgb(230, 227, 250, .9);*/
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.form__h1logo{
+    text-align: center;
+}
+
+.form__imgicon{
+    height: 135px;
+}
+
+.form__input {
+    color: var(--colorLB1);
+    margin: 10px 0px;
+    font-size: 17px;
+    height: 40px;
+    width: 86%;
+    background: rgba(255, 255, 255, 0.575);
+    outline: none;
+    border: none;
+    margin-bottom: 20px;
+    /*border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;*/
+    display: inline;
+}
+
+.form__input::placeholder{
+    /*text-align: center;*/
+    position: relative;
+    left: 20px;
+}
+
+.form__img__div{
+    
+    display: inline;
+    background: rgba(255, 255, 255, 0.575);
+    margin-right: 3px;
+    padding: 9px 10px;
+}
+/* relleno para la parte izquierda de los inputs para despegar el texto al escribir*/
+.form__img__div__Relleno{
+    display: inline;
+    background: rgba(255, 255, 255, 0.575);
+    padding: 10px 3px;
+}
+.form__img__div__Relleno{
+    padding-bottom: 9px;
+}
+/*/////////////////////////////////////////*/
+#form__checkid{
+    height: 16px;
+    width: 16px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: rgb(165, 165, 165) solid .1px;
+    /*color: rgb(201, 201, 201);*/
+}
+
+.form__label__check{
+    margin-top: 20px;
+    color: rgb(209, 209, 209);
+}
+
+.form__button{
+    display: block;
+    margin: 40px auto;
+    height: 34px;
+    font-size: 18px;
+    width: 170px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: rgb(209, 209, 209);
+}
+

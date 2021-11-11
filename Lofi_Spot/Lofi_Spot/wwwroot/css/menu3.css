@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: #214979;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;   
+
+}
+.menu__logo{
+    display: flex;
+    align-items: center;
+}
+.menu__others{
+    display: flex;
+    align-items: center;
+}
+.menu__search{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.menu__search__icon{
+    margin-right: 10px;
+}
+
+.menu__search__input{
+    width: 240px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #71aef8;
+    border-radius: 1.5px;
+    color: #214979;
+    font-size: 18px;
+    
+    
+}
+
+.menu__user{
+    width: 40px;
+}
+
+/*nav*/
+.menu{
+    max-width: 85%;
+    margin: auto;
+    background-color: transparent;
+    height: 60px;
+    border-bottom: #71aef8 1.5px solid;
+}
+
+/*nav section*/
+.menu__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+
+}
+
+/*nav section ul*/
+.menu__links{
+    height: 100%;
+    transition: transform .5s;
+    display: flex;
+}
+
+/*nav section ul li*/
+.menu__item{
+    list-style: none;
+    position: relative;
+    height: 100%;
+    --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+    --transform: rotate(-90deg);
+}
+
+.menu__item:hover{
+    --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    --transform: rotate(0);
+}
+/*nav section ul li*/
+.menu__link{
+    text-decoration: none;
+    padding: 0 30px;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.menu__link:hover{
+    background-color: #a5c1fa;
+}
+
+/*nav section ul li a .arrow*/
+.menu__arrow{
+    transform: var(--transform);
+    transition: transform .3s;
+    display: block;
+    margin-left: 3px;
+}
+
+.menu__nesting{
+    list-style: none;
+    transition: clip-path .3s;
+    clip-path: var(--clip);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: max-content;
+    transform: translateY(100%);    
+    border-bottom: #a5c1fa solid 2px;
+}
+
+.menu__link--inside{
+    /*padding: 30px 40px 30px 40px;*/
+    padding: 25px 40px;
+    background: #a5c1fa;
+}
+
+.menu__link--inside:hover{
+    background-color: #b2c2e0;
+}
