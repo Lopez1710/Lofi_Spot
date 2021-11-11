@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lofi_Spot.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211105025816_Migrations")]
+    [Migration("20211111213153_Migrations")]
     partial class Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,21 +103,6 @@ namespace Lofi_Spot.Migrations
                     b.ToTable("Direcciones");
                 });
 
-            modelBuilder.Entity("Lofi_Spot.Dominio.Imagenes", b =>
-                {
-                    b.Property<int>("imagenID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("imagen")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("imagenID");
-
-                    b.ToTable("Imagenes");
-                });
-
             modelBuilder.Entity("Lofi_Spot.Dominio.Productos", b =>
                 {
                     b.Property<int>("ProductoID")
@@ -130,6 +115,9 @@ namespace Lofi_Spot.Migrations
 
                     b.Property<int>("CategoriaID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Imagenes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");

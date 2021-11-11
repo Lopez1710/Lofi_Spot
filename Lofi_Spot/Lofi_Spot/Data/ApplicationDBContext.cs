@@ -22,7 +22,7 @@ namespace Lofi_Spot.Data
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Carritos> Carritos { get; set; }
         public DbSet<DetalleDeCompras> DetalleDeCompras { get; set; }
-        public DbSet<Imagenes> Imagenes { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -35,7 +35,6 @@ namespace Lofi_Spot
             services.AddTransient <ICategorias, CategoriasRepository> ();
             services.AddTransient <IDetallesDeCompras, DetalleDeComprasRepository> ();
             services.AddTransient <IDirecciones, DireccionesRepository> ();
-            services.AddTransient <IImagenes, ImagenesRepository> ();
             services.AddTransient <IProductos, ProductosRepository> ();
             services.AddTransient <IRoles, RolesRepository> ();
             services.AddTransient <ITarjetas, TarjetasRepository> ();

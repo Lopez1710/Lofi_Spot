@@ -35,19 +35,6 @@ namespace Lofi_Spot.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Imagenes",
-                columns: table => new
-                {
-                    imagenID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    imagen = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Imagenes", x => x.imagenID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -83,6 +70,7 @@ namespace Lofi_Spot.Migrations
                     Producto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Imagenes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoriaID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -206,9 +194,6 @@ namespace Lofi_Spot.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DetalleDeCompras");
-
-            migrationBuilder.DropTable(
-                name: "Imagenes");
 
             migrationBuilder.DropTable(
                 name: "Tarjetas");
