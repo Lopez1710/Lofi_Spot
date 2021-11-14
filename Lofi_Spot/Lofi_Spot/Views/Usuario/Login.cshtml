@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Login</h1>
+
+<div class="contenedor">
+    <form action="/Usuario/Login" method="post" class="form">
+        <div class="form-group">
+            <label>Usuario :</label>
+            <input type="text" name="User" required placeholder="Usuario" />
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña:</label>
+            <input type="password" name="Pass" required placeholder="Password" />
+        </div>
+        <button type="submit" button class="btn btn-success">Continuar</button>
+
+    </form>
+</div>

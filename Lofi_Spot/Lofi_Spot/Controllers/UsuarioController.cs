@@ -20,6 +20,12 @@ namespace Lofi_Spot.Controllers
         {
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Registro(Usuarios usuario)
         {
@@ -29,6 +35,26 @@ namespace Lofi_Spot.Controllers
             us.Pass = usuario.Pass;
             us.RolID = 2;
             iusuario.Insert(us);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string User, string Pass)
+        {
+            var Lista = iusuario.List();
+            foreach (var iteracion in Lista)
+            {
+                if (iteracion.Email.Equals(User) && iteracion.Pass.Equals(Pass))
+                {
+                    Redirect("/Home/Index");
+                }
+                else
+                {
+                    return View("Registro");
+                }
+
+            }
+
             return View();
         }
     }
