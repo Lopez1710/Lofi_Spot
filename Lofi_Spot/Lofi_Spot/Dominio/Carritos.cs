@@ -15,6 +15,9 @@ namespace Lofi_Spot.Dominio
         public int Cantidad { get; set; }
         public int ProductoID { get; set; }
         public Productos Producto { get; set; }
-        public ICollection<DetalleDeCompras> DetalleDeCompras { get; set; }
+        public int NumeroCarritoID { get; set; }
+        public NumeroCarritos NumeroCarrito { get; set; }
+        public int estado { get; set; }
+        
     }
 }

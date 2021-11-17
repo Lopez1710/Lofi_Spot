@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Lofi_Spot.Controllers
 {
+    /*Para probar el proyecto tiene que haber registros en rol, targeta, direccion, producto y categoria*/
+    /*Los mas inportantes son rol, tarjeta y direccion*/
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -18,6 +18,7 @@ namespace Lofi_Spot.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<Tarjetas> Tarjetas { get; set; }
         public DbSet<Direcciones> Direcciones { get; set; }
+        public DbSet<NumeroCarritos> NumeroCarritos { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Carritos> Carritos { get; set; }

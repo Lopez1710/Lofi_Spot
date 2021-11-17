@@ -28,7 +28,7 @@
                 </li>
 
                 <li class="menu__item">
-                    <a href="#" class="menu__link">Login</a>
+                    <a href="/Usuario/Login" class="menu__link">Login</a>
                 </li>
             </ul>
 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="form__img__div__Relleno"></div>
-                <input type="text" name="Nick" class="form__input" placeholder="Nick name">
+                <input type="text" name="Nick" class="form__input" placeholder="Nick name" required>
             </div>
 
             <div class="form__input__cont">
@@ -56,7 +56,11 @@
                 </div>
 
                 <div class="form__img__div__Relleno"></div>
-                <input type="text" name="Email" class="form__input" placeholder="Email">
+                <input type="text" name="Email" class="form__input" placeholder="Email" required>
+                @if(ViewBag.rep == 1)
+                          {
+                    <label class="text-danger">Correo ya registrado</label>
+                          }
             </div>
 
             <div class="form__input__cont">
@@ -65,7 +69,7 @@
                 </div>
 
                 <div class="form__img__div__Relleno"></div>
-                <input type="text" name="Pass" class="form__input" placeholder="Password">
+                <input type="text" name="Pass" class="form__input" placeholder="Password" required>
             </div>
 
             <label class="form-check-label form__label form__label__check">

@@ -15,7 +15,7 @@ namespace Lofi_Spot.Dominio
         public string Departamento { get; set; }
         public string Localidad { get; set; }
         public int CP { get; set; }
-        public ICollection<DetalleDeCompras> DetalleDeCompras { get; set; }
+        public ICollection<Usuarios> Usuarios { get; set; }
 
     }
 }

@@ -39,6 +39,7 @@ namespace Lofi_Spot
             services.AddTransient <IRoles, RolesRepository> ();
             services.AddTransient <ITarjetas, TarjetasRepository> ();
             services.AddTransient <IUsuarios, UsuariosRepository> ();
+            services.AddTransient <INumeroCarrito, NumeroCarritoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

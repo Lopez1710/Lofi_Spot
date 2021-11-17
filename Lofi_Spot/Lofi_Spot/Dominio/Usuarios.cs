@@ -17,6 +17,11 @@ namespace Lofi_Spot.Dominio
         public string Pass { get; set; }
         public int RolID { get; set; }
         public Roles Rol { get; set; }
+        public int TarjetaID { get; set; }
+        public Tarjetas Tarjeta { get; set; }
+        public int DireccionID { get; set; }
+        public Direcciones Direccion { get; set; }
+        public ICollection<NumeroCarritos> NumeroCarritos { get; set; }
         
     }
 }

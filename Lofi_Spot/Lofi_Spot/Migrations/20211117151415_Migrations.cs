@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lofi_Spot.Migrations
 {
@@ -51,14 +52,14 @@ namespace Lofi_Spot.Migrations
                 name: "Tarjetas",
                 columns: table => new
                 {
-                    Numero = table.Column<int>(type: "int", nullable: false)
+                    TarjetaID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Fecha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CVV = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tarjetas", x => x.Numero);
+                    table.PrimaryKey("PK_Tarjetas", x => x.TarjetaID);
                 });
 
             migrationBuilder.CreateTable(
@@ -71,6 +72,7 @@ namespace Lofi_Spot.Migrations
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
                     Imagenes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoriaID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -93,16 +95,49 @@ namespace Lofi_Spot.Migrations
                     Nick = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pass = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RolID = table.Column<int>(type: "int", nullable: false)
+                    RolID = table.Column<int>(type: "int", nullable: false),
+                    TarjetaID = table.Column<int>(type: "int", nullable: false),
+                    DireccionID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.UsuarioID);
                     table.ForeignKey(
+                        name: "FK_Usuarios_Direcciones_DireccionID",
+                        column: x => x.DireccionID,
+                        principalTable: "Direcciones",
+                        principalColumn: "DireccionID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Usuarios_Roles_RolID",
                         column: x => x.RolID,
                         principalTable: "Roles",
                         principalColumn: "RolID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Tarjetas_TarjetaID",
+                        column: x => x.TarjetaID,
+                        principalTable: "Tarjetas",
+                        principalColumn: "TarjetaID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NumeroCarritos",
+                columns: table => new
+                {
+                    NumeroCarritoID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NumeroCarritos", x => x.NumeroCarritoID);
+                    table.ForeignKey(
+                        name: "FK_NumeroCarritos_Usuarios_UsuarioID",
+                        column: x => x.UsuarioID,
+                        principalTable: "Usuarios",
+                        principalColumn: "UsuarioID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -113,11 +148,19 @@ namespace Lofi_Spot.Migrations
                     CarritoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Cantidad = table.Column<int>(type: "int", nullable: false),
-                    ProductoID = table.Column<int>(type: "int", nullable: false)
+                    ProductoID = table.Column<int>(type: "int", nullable: false),
+                    NumeroCarritoID = table.Column<int>(type: "int", nullable: false),
+                    estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carritos", x => x.CarritoID);
+                    table.ForeignKey(
+                        name: "FK_Carritos_NumeroCarritos_NumeroCarritoID",
+                        column: x => x.NumeroCarritoID,
+                        principalTable: "NumeroCarritos",
+                        principalColumn: "NumeroCarritoID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Carritos_Productos_ProductoID",
                         column: x => x.ProductoID,
@@ -132,32 +175,24 @@ namespace Lofi_Spot.Migrations
                 {
                     DetalleID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DireccionID = table.Column<int>(type: "int", nullable: false),
-                    CarritoID = table.Column<int>(type: "int", nullable: false),
-                    UsuarioID = table.Column<int>(type: "int", nullable: false)
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NumeroCarritoID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DetalleDeCompras", x => x.DetalleID);
                     table.ForeignKey(
-                        name: "FK_DetalleDeCompras_Carritos_CarritoID",
-                        column: x => x.CarritoID,
-                        principalTable: "Carritos",
-                        principalColumn: "CarritoID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DetalleDeCompras_Direcciones_DireccionID",
-                        column: x => x.DireccionID,
-                        principalTable: "Direcciones",
-                        principalColumn: "DireccionID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DetalleDeCompras_Usuarios_UsuarioID",
-                        column: x => x.UsuarioID,
-                        principalTable: "Usuarios",
-                        principalColumn: "UsuarioID",
+                        name: "FK_DetalleDeCompras_NumeroCarritos_NumeroCarritoID",
+                        column: x => x.NumeroCarritoID,
+                        principalTable: "NumeroCarritos",
+                        principalColumn: "NumeroCarritoID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carritos_NumeroCarritoID",
+                table: "Carritos",
+                column: "NumeroCarritoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carritos_ProductoID",
@@ -165,18 +200,13 @@ namespace Lofi_Spot.Migrations
                 column: "ProductoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetalleDeCompras_CarritoID",
+                name: "IX_DetalleDeCompras_NumeroCarritoID",
                 table: "DetalleDeCompras",
-                column: "CarritoID");
+                column: "NumeroCarritoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetalleDeCompras_DireccionID",
-                table: "DetalleDeCompras",
-                column: "DireccionID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DetalleDeCompras_UsuarioID",
-                table: "DetalleDeCompras",
+                name: "IX_NumeroCarritos_UsuarioID",
+                table: "NumeroCarritos",
                 column: "UsuarioID");
 
             migrationBuilder.CreateIndex(
@@ -185,36 +215,49 @@ namespace Lofi_Spot.Migrations
                 column: "CategoriaID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_DireccionID",
+                table: "Usuarios",
+                column: "DireccionID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_RolID",
                 table: "Usuarios",
                 column: "RolID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_TarjetaID",
+                table: "Usuarios",
+                column: "TarjetaID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DetalleDeCompras");
-
-            migrationBuilder.DropTable(
-                name: "Tarjetas");
-
-            migrationBuilder.DropTable(
                 name: "Carritos");
 
             migrationBuilder.DropTable(
-                name: "Direcciones");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "DetalleDeCompras");
 
             migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "NumeroCarritos");
 
             migrationBuilder.DropTable(
                 name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Direcciones");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Tarjetas");
         }
     }
 }
