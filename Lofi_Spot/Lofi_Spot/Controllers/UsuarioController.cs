@@ -71,7 +71,7 @@ namespace Lofi_Spot.Controllers
             var Lista = iusuario.List();
             foreach (var iteracion in Lista)
             {
-                if (iteracion.Email.Equals(User) && iteracion.Pass.Equals(Pass))
+                if ((iteracion.Email.Equals(User) || iteracion.Nick.Equals(User)) && iteracion.Pass.Equals(Pass))
                 {
                     Redirect("/Home/Index");
                 }
