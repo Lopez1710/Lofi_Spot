@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lofi_Spot.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211117151415_Migrations")]
+    [Migration("20211117232754_Migrations")]
     partial class Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -66,7 +66,7 @@ namespace Lofi_Spot
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Producto}/{action=ProductoCarrusel}/{id?}");
             });
         }
     }
