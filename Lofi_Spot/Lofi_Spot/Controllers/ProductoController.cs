@@ -37,5 +37,29 @@ namespace Lofi_Spot.Controllers
             return View();
             
         }
+         public IActionResult ProductoEspesificacion(int id)
+        {
+            var lista = iproducto.List();
+            var Producto = from pro in lista
+                           where pro.ProductoID == id
+                           select pro;
+            List<int> cant = new List<int>();
+            for (int i = 1; i <= Producto.Select(x => x.Cantidad).FirstOrDefault(); i++)
+            {
+                if (cant.Count() <= 9)
+                {
+                    cant.Add(i);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+            ViewBag.Cant = cant;
+            ViewBag.Pro = Producto;
+            return View();
+        }
     }
+
 }

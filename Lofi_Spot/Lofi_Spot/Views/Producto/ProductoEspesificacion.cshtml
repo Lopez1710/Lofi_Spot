@@ -1,0 +1,145 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/ProductPage.css">
+    <title>Product Page </title>
+</head>
+
+<body>
+    <header>
+        <div class="main__cont" id="inicio">
+            <nav class="menu">
+                <section class="menu__container">
+
+                    <ul class="menu__links">
+                        <h1 class="menu__logo">LofiSpot</h1>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">Home</a>
+                        </li>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu_link">Opcion <img src="/assets/arrow.svg" class="menu_arrow"></a>
+
+                            <ul class="menu__nesting">
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu_link">Opcion <img src="/assets/arrow.svg" class="menu_arrow"></a>
+
+                            <ul class="menu__nesting">
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
+                                </li>
+                                <li class="menu__inside">
+                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="menu__others">
+                        <div class="menu__search">
+                            <img class="menu_search_icon" src="/assets/search.svg">
+                            <input type="text" class="menu_search_input">
+                        </div>
+                        <img class="menu__user" src="/assets/user.svg">
+                    </div>
+                </section>
+            </nav>
+        </div>
+    </header>
+
+    <div class="separador1"></div>
+    @foreach (var prod in ViewBag.Pro)
+    {
+<div class="content__container">
+    <div class="content_info content_info1 ">
+        <img src="@prod.Imagenes" class="info1__img">
+    </div>
+    <div class="content_info content_info2">
+        <div class="content_info2g contentinfo2_i">
+            <span class="span__infoH">@prod.Producto</span>
+            <div class="separador_productdesc"></div>
+
+            <div class="content_info_conSpan">
+                <span class="span__info2">
+                    @prod.Descripcion
+                </span>
+            </div>
+
+        </div>
+
+        <div class="content_info2g contentinfo2_c">
+
+            <label class="precio">$@prod.Precio</label>
+            <div class="separador__continfo2"></div>
+            <label class="cantidad">Cantidad: </label>
+            <form action="/home/Carrito/" method="post">
+                <input value="@prod.ProductoID" type="hidden" name="id" />
+                <select class="select" name="cant">
+                    @foreach (var cant in ViewBag.Cant)
+                    {
+    <option>@cant</option>}
+                </select>
+                <div class="separador__continfo2"></div>
+                <input type="submit" value="Agregar al carrito" class="button">
+            </form>
+            <a href="/home/producto">
+                <input type="button" value="Ver otros productos" class="button">
+            </a>
+
+        </div>
+    </div>
+</div>}
+    <div class="separadorContentFooter"></div>
+    <footer>
+        <div class="footer__link">
+            <a href="#inicio" class="footer__inicio">Inicio de página</a>
+        </div>
+        <div class="footer__container">
+            <div class="separador__contact"></div>
+            <span class="footer__Contact">Contacto</span>
+            <div class="separador__contact"></div>
+            <span class="footer_span"><a href="#" class="footer_a">correoPrueba@gmail.com</a></span>
+            <div class="separador__contact"></div>
+            <span class="footer__span">7645-2343</span>
+            <div class="separador__contact"></div>
+            <div class="footer__SocialNetwork">
+                <img src="./img/facebook.png" class="footer__icon">
+                <img src="./img/twitter.png" class="footer__icon">
+                <img src="./img/gmail-logo.png" class="footer__icon">
+            </div>
+            <div class="separador__contact"></div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
