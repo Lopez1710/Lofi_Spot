@@ -101,15 +101,15 @@
             <label class="precio">$@prod.Precio</label>
             <div class="separador__continfo2"></div>
             <label class="cantidad">Cantidad: </label>
-            <form action="/home/Carrito/" method="post">
-                <input value="@prod.ProductoID" type="hidden" name="id" />
-                <select class="select" name="cant">
+            <form action="/Carritos/GuardarCarrito/" method="post">
+                <input value="@prod.ProductoID" type="hidden" name="ProductoID" />
+                <select class="select" name="Cantidad">
                     @foreach (var cant in ViewBag.Cant)
                     {
     <option>@cant</option>}
                 </select>
                 <div class="separador__continfo2"></div>
-                <input type="submit" value="Agregar al carrito" class="button">
+                    <input type="submit" value="Agregar al carrito" class="button">
             </form>
             <a href="/home/producto">
                 <input type="button" value="Ver otros productos" class="button">
