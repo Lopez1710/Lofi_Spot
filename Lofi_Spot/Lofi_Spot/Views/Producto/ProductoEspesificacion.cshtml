@@ -3,73 +3,131 @@
     Layout = null;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/ProductPage.css">
+    <link rel="stylesheet" href="./css/ProductPage.css">
     <title>Product Page </title>
 </head>
 
 <body>
+    <style>
+        .menu__others {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .menu__user {
+            background-image: url(../assets/user.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 40px;
+            width: 40px;
+        }
+
+        .menu__item__user {
+            list-style: none;
+            position: relative;
+            height: 100%;
+            --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+            --transform: rotate(-90deg);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+        }
+
+            .menu__item__user:hover {
+                --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                --transform: rotate(0);
+            }
+
+        .menu__nesting__user {
+            background-color: rgba(6, 0, 58, 0.8);
+            list-style: none;
+            transition: clip-path .3s;
+            clip-path: var(--clip);
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 250px;
+            transform: translateY(100%);
+        }
+
+        .menu__link__user {
+            text-decoration: none;
+            padding: 0 30px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            color: white;
+        }
+
+        .menu__link__user--inside {
+            /*padding: 30px 40px 30px 40px;*/
+            padding: 25px 40px;
+            background-color: rgba(4, 0, 37, 0.438);
+        }
+
+            .menu__link__user--inside:hover {
+                background-color: rgba(45, 48, 68, .8);
+            }
+
+        .menu__link__nameusu {
+            text-decoration: none;
+            padding: 0 30px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            color: white;
+        }
+
+        .menu__link__nameusu--inside {
+            /*padding: 30px 40px 30px 40px;*/
+            padding: 25px 40px;
+            background-color: rgba(6, 0, 58, 0.438);
+        }
+
+        .separador__nombreusu {
+            height: 1px;
+            margin: 10px 0;
+        }
+    </style>
     <header>
         <div class="main__cont" id="inicio">
             <nav class="menu">
                 <section class="menu__container">
 
                     <ul class="menu__links">
-                        <h1 class="menu__logo">LofiSpot</h1>
+                        <li class="menu__logo"><img class="menu__logo__img" style="height: 90%; width: 100px;" src="./img/LofiSpot (1).png" alt=""></li>
 
                         <li class="menu__item">
                             <a href="#" class="menu__link">Home</a>
                         </li>
 
                         <li class="menu__item">
-                            <a href="#" class="menu_link">Opcion <img src="/assets/arrow.svg" class="menu_arrow"></a>
-
-                            <ul class="menu__nesting">
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
-                                </li>
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
-                                </li>
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">SubItem</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="menu__item">
-                            <a href="#" class="menu_link">Opcion <img src="/assets/arrow.svg" class="menu_arrow"></a>
-
-                            <ul class="menu__nesting">
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
-                                </li>
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
-                                </li>
-                                <li class="menu__inside">
-                                    <a href="#" class="menu_link menu_link--inside">subItem</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="menu__item">
                             <a href="#" class="menu__link">Contact</a>
+                        </li>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">Ver productos</a>
                         </li>
                     </ul>
 
                     <div class="menu__others">
-                        <div class="menu__search">
-                            <img class="menu_search_icon" src="/assets/search.svg">
-                            <input type="text" class="menu_search_input">
+                        <div class="menu__item__user">
+                            <div class="menu__user"></div>
+
+                            <ul class="menu__nesting__user">
+                                <li class="menu__inside__user">
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">Nombre usu</div>
+                                </li>
+                                <li class="separador__nombreusu"></li>
+                                <li class="menu__inside">
+                                    <a href="#" class="menu__link__user menu__link__user--inside">Informacion de cuenta</a>
+                                </li>
+                            </ul>
                         </div>
-                        <img class="menu__user" src="/assets/user.svg">
+
                     </div>
                 </section>
             </nav>
@@ -79,45 +137,46 @@
     <div class="separador1"></div>
     @foreach (var prod in ViewBag.Pro)
     {
-<div class="content__container">
-    <div class="content_info content_info1 ">
-        <img src="@prod.Imagenes" class="info1__img">
-    </div>
-    <div class="content_info content_info2">
-        <div class="content_info2g contentinfo2_i">
-            <span class="span__infoH">@prod.Producto</span>
-            <div class="separador_productdesc"></div>
-
-            <div class="content_info_conSpan">
-                <span class="span__info2">
-                    @prod.Descripcion
-                </span>
+        <div class="content__container">
+            <div class="content_info content_info1 ">
+                <img src="@prod.Imagenes" class="info1__img">
             </div>
+            <div class="content_info content_info2">
+                <div class="content_info2g contentinfo2_i">
+                    <span class="span__infoH">@prod.Producto</span>
+                    <div class="separador_productdesc"></div>
 
-        </div>
+                    <div class="content_info_conSpan">
+                        <span class="span__info2">
+                            @prod.Descripcion
+                        </span>
+                    </div>
 
-        <div class="content_info2g contentinfo2_c">
+                </div>
 
-            <label class="precio">$@prod.Precio</label>
-            <div class="separador__continfo2"></div>
-            <label class="cantidad">Cantidad: </label>
-            <form action="/Carritos/GuardarCarrito/" method="post">
-                <input value="@prod.ProductoID" type="hidden" name="ProductoID" />
-                <select class="select" name="Cantidad">
-                    @foreach (var cant in ViewBag.Cant)
-                    {
-    <option>@cant</option>}
-                </select>
-                <div class="separador__continfo2"></div>
-                    <input type="submit" value="Agregar al carrito" class="button">
-            </form>
-            <a href="/home/producto">
-                <input type="button" value="Ver otros productos" class="button">
-            </a>
+                <div class="content_info2g contentinfo2_c">
 
-        </div>
-    </div>
-</div>}
+                    <label class="precio">$@prod.Precio</label>
+                    <div class="separador__continfo2"></div>
+                    <label class="cantidad">Cantidad: </label>
+                    <form action="/home/Carrito/" method="post">
+                        <input value="@prod.ProductoID" type="hidden" name="id" />
+                        <select class="select" name="cant">
+                            @foreach (var cant in ViewBag.Cant)
+                            {
+                                <option>@cant</option>
+                            }
+                        </select>
+                        <div class="separador__continfo2"></div>
+                        <input type="submit" value="Agregar al carrito" class="button">
+                    </form>
+                    <a href="/home/producto">
+                        <input type="button" value="Ver otros productos" class="button">
+                    </a>
+
+                </div>
+            </div>
+        </div>}
     <div class="separadorContentFooter"></div>
     <footer>
         <div class="footer__link">
@@ -127,14 +186,14 @@
             <div class="separador__contact"></div>
             <span class="footer__Contact">Contacto</span>
             <div class="separador__contact"></div>
-            <span class="footer_span"><a href="#" class="footer_a">correoPrueba@gmail.com</a></span>
+            <span class="footer__span"><a href="mailto:lofispots@gmail.com" class="footer__a">LofiSpots@gmail.com</a></span>
             <div class="separador__contact"></div>
             <span class="footer__span">7645-2343</span>
             <div class="separador__contact"></div>
             <div class="footer__SocialNetwork">
-                <img src="./img/facebook.png" class="footer__icon">
-                <img src="./img/twitter.png" class="footer__icon">
-                <img src="./img/gmail-logo.png" class="footer__icon">
+                <a href="https://www.facebook.com/profile.php?id=100074944750786" target="_blank"><img src="./img/facebook.png" class="footer__icon"></a>
+
+                <a href="mailto:lofispots@gmail.com"><img src="./img/gmail-logo.png" class="footer__icon"></a>
             </div>
             <div class="separador__contact"></div>
         </div>
