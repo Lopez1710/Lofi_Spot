@@ -12,5 +12,7 @@ namespace Lofi_Spot.Dominio
         public static int Tarjeta = 0;
         public static int NumeroCarrito = 0;
         public static int Rol = 0;
+
+        public static int IDProducto = 0;
     }
 }

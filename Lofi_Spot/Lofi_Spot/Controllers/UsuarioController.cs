@@ -26,15 +26,16 @@ namespace Lofi_Spot.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Login(int id)
         {
+            ElementosEstaticos.IDProducto = id;
             return View();
         }
 
         [HttpPost]
         public IActionResult Registro(Usuarios usuario)
         {
-            var existe = iusuario.List().Where(x => x.Email == usuario.Email).Select(x => x.UsuarioID).FirstOrDefault();
+            var existe = iusuario.List().Where(x => (x.Email == usuario.Email || x.Nick == usuario.Nick)).Select(x => x.UsuarioID).FirstOrDefault();
 
             if (existe==0) {
                 Usuarios us = new Usuarios();
@@ -60,7 +61,23 @@ namespace Lofi_Spot.Controllers
             }
             else
             {
-                ViewBag.rep = 1;
+                var email = iusuario.List().Where(x => x.Email==usuario.Email).Select(x => x.UsuarioID).FirstOrDefault();
+                var Nick = iusuario.List().Where(x => x.Nick == usuario.Nick).Select(x => x.UsuarioID).FirstOrDefault();
+
+                if (Nick != 0 && email != 0)
+                {
+                    ViewBag.nick = 2;
+                    ViewBag.email = 1;
+                }
+                else if(Nick != 0)
+                {
+                    ViewBag.nick = 2;
+                }
+                else if (email != 0)
+                {
+                    ViewBag.email = 1;
+                }
+                
                 return View();
             }
         }
@@ -68,6 +85,7 @@ namespace Lofi_Spot.Controllers
         [HttpPost]
         public IActionResult Login(string User, string Pass)
         {
+            
             var Ncarrito = inumerocarrito.List();
             var Lista = iusuario.List();
             var autentificacion = (from usuario in Lista
@@ -83,6 +101,17 @@ namespace Lofi_Spot.Controllers
 
             if (IDUser !=0)
                 {
+                if (ElementosEstaticos.IDProducto != 0)
+                {
+                    ElementosEstaticos.IDUser = IDUser;
+                    ElementosEstaticos.Tarjeta = Tarjeta;
+                    ElementosEstaticos.Rol = Rol;
+                    ElementosEstaticos.Direccion = Direccion;
+                    ElementosEstaticos.NumeroCarrito = CarritoN;
+
+                    return Redirect("/Producto/ProductoEspesificacion/"+ElementosEstaticos.IDProducto);
+                }
+                else { 
                     ElementosEstaticos.IDUser = IDUser;
                     ElementosEstaticos.Tarjeta = Tarjeta;
                     ElementosEstaticos.Rol = Rol;
@@ -90,6 +119,7 @@ namespace Lofi_Spot.Controllers
                     ElementosEstaticos.NumeroCarrito = CarritoN;
 
                     return Redirect("/Producto/ProductoCarrusel");
+                    }
                 }
                 else
                 {

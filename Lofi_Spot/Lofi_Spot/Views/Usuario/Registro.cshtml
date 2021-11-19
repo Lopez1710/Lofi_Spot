@@ -48,6 +48,10 @@
 
                 <div class="form__img__div__Relleno"></div>
                 <input type="text" name="Nick" class="form__input" placeholder="Nick name" required>
+                @if (ViewBag.nick == 2)
+                {
+                    <label class="text-white">Nombre ya registrado proeva uno diferente</label>
+                }
             </div>
 
             <div class="form__input__cont">
@@ -57,9 +61,9 @@
 
                 <div class="form__img__div__Relleno"></div>
                 <input type="text" name="Email" class="form__input" placeholder="Email" required>
-                @if(ViewBag.rep == 1)
+                @if(ViewBag.email == 1)
                           {
-                    <label class="text-danger">Correo ya registrado</label>
+                    <label class="text-white">Correo ya registrado prueva uno diferente</label>
                           }
             </div>
 

@@ -4,7 +4,7 @@
 }
 
 <head>
-    <link rel="stylesheet" href="./css/ProductPage.css">
+    <link rel="stylesheet" href="/css/ProductPage.css">
     <title>Product Page </title>
 </head>
 
@@ -98,7 +98,7 @@
                 <section class="menu__container">
 
                     <ul class="menu__links">
-                        <li class="menu__logo"><img class="menu__logo__img" style="height: 90%; width: 100px;" src="./img/LofiSpot (1).png" alt=""></li>
+                        <li class="menu__logo"><img class="menu__logo__img" style="height: 90%; width: 100px;" src="/img/LofiSpot (1).png" alt=""></li>
 
                         <li class="menu__item">
                             <a href="#" class="menu__link">Home</a>
@@ -159,9 +159,9 @@
                     <label class="precio">$@prod.Precio</label>
                     <div class="separador__continfo2"></div>
                     <label class="cantidad">Cantidad: </label>
-                    <form action="/home/Carrito/" method="post">
-                        <input value="@prod.ProductoID" type="hidden" name="id" />
-                        <select class="select" name="cant">
+                    <form action="/Carritos/GuardarCarrito/" method="post">
+                        <input value="@prod.ProductoID" type="hidden" name="ProductoID" />
+                        <select class="select" name="Cantidad">
                             @foreach (var cant in ViewBag.Cant)
                             {
                                 <option>@cant</option>
@@ -170,7 +170,7 @@
                         <div class="separador__continfo2"></div>
                         <input type="submit" value="Agregar al carrito" class="button">
                     </form>
-                    <a href="/home/producto">
+                    <a href="/Producto/ProductoCarrusel">
                         <input type="button" value="Ver otros productos" class="button">
                     </a>
 
