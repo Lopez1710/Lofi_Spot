@@ -11,10 +11,39 @@ namespace Lofi_Spot.Controllers
     public class CarritosController : Controller
     {
         private ICarritos icarritos;
+        private IDetallesDeCompras idetalles;
 
-        public CarritosController(ICarritos icarritos)
+        public CarritosController(ICarritos icarritos, IDetallesDeCompras idetalles)
         {
             this.icarritos = icarritos;
+            this.idetalles = idetalles;
+        }
+
+        public IActionResult Listado()
+        {
+            var lista = icarritos.List().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).Select(x => x).ToList();
+
+            ViewBag.ls = lista;
+
+            return View();
+        }
+        [HttpGet]
+        public IActionResult RealizarCompra()
+        {
+            var lista = icarritos.List().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).Select(x => x).ToList();
+            decimal total = 0;
+            foreach (var datos in lista)
+            {
+                decimal suma = (datos.Cantidad * datos.Producto.Precio);
+                total += suma;
+            }
+
+            DetalleDeCompras dtc = new DetalleDeCompras();
+            dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
+            dtc.Total = total;
+
+            idetalles.Insert(dtc);
+            return Redirect("/Producto/ProductoCarrusel");
         }
 
         [HttpPost]

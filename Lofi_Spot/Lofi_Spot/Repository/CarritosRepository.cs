@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lofi_Spot.Repository
 {
@@ -35,7 +36,8 @@ namespace Lofi_Spot.Repository
 
         public List<Carritos> List()
         {
-            return DB.Carritos.ToList();
+            var union = DB.Carritos.Include(x => x.Producto).ToList();
+            return union;
         }
 
         public void Update(Carritos C)
