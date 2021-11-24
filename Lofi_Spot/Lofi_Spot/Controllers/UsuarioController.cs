@@ -97,10 +97,10 @@ namespace Lofi_Spot.Controllers
             var Tarjeta = autentificacion.Select(x => x.TarjetaID).FirstOrDefault();
             var Rol = autentificacion.Select(x => x.RolID).FirstOrDefault();
             var Direccion = autentificacion.Select(x => x.DireccionID).FirstOrDefault();
-            var CarritoN = Ncarrito.Where(x => x.UsuarioID == IDUser).Select(x => x.NumeroCarritoID).FirstOrDefault(); ;
+            var CarritoN = Ncarrito.Where(x => x.UsuarioID == IDUser).Select(x => x.NumeroCarritoID).FirstOrDefault(); 
 
-            if (IDUser !=0)
-                {
+            if (IDUser != 0)
+            {
                 if (ElementosEstaticos.IDProducto != 0)
                 {
                     ElementosEstaticos.IDUser = IDUser;
@@ -109,9 +109,9 @@ namespace Lofi_Spot.Controllers
                     ElementosEstaticos.Direccion = Direccion;
                     ElementosEstaticos.NumeroCarrito = CarritoN;
 
-                    return Redirect("/Producto/ProductoEspesificacion/"+ElementosEstaticos.IDProducto);
+                    return Redirect("/Producto/ProductoEspesificacion/" + ElementosEstaticos.IDProducto);
                 }
-                else { 
+                else {
                     ElementosEstaticos.IDUser = IDUser;
                     ElementosEstaticos.Tarjeta = Tarjeta;
                     ElementosEstaticos.Rol = Rol;
@@ -119,11 +119,14 @@ namespace Lofi_Spot.Controllers
                     ElementosEstaticos.NumeroCarrito = CarritoN;
 
                     return Redirect("/Producto/ProductoCarrusel");
-                    }
                 }
-                else
-                {
-                    return View("Registro");
+            }
+            else
+            {
+                var existe = iusuario.List().Where(x => (x.Email == User || x.Nick == User)).Select(x => x).ToList();
+                ViewBag.error = existe.Count() ;
+               
+                return View();
                 }
         }
     }

@@ -14,8 +14,10 @@ namespace Lofi_Spot.Controllers
     {
         private IProductos iproducto;
         private ICategorias icategoria;
-        public ProductoController(IProductos iproducto,ICategorias icategoria)
+        private IUsuarios iusuarios;
+        public ProductoController(IProductos iproducto,ICategorias icategoria, IUsuarios iusuarios)
         {
+            this.iusuarios = iusuarios;
             this.iproducto = iproducto;
             this.icategoria = icategoria;
         }
@@ -23,6 +25,7 @@ namespace Lofi_Spot.Controllers
         {
             var categorias = icategoria.List();
             var productos = iproducto.List();
+            var usuario = iusuarios.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();
             var idct = productos.GroupBy(x => x.CategoriaID).ToList();
 
             List<Categorias> ct = new List<Categorias>();
@@ -31,7 +34,8 @@ namespace Lofi_Spot.Controllers
                 var dato = categorias.Where(x => x.CategoriaID == item.Key).Select(x => x).FirstOrDefault();
                 ct.Add(dato);
             }
-
+            ViewBag.usercount = usuario.Count();
+            ViewBag.user = usuario;
             ViewBag.Categoria = ct;
             ViewBag.Producto = productos;
             return View();
@@ -40,6 +44,8 @@ namespace Lofi_Spot.Controllers
          public IActionResult ProductoEspesificacion(int id)
         {
             var lista = iproducto.List();
+            var usuario = iusuarios.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();
+
             var Producto = from pro in lista
                            where pro.ProductoID == id
                            select pro;
@@ -56,6 +62,8 @@ namespace Lofi_Spot.Controllers
                 }
 
             }
+            ViewBag.usercount = usuario.Count();
+            ViewBag.user = usuario;
             ViewBag.Cant = cant;
             ViewBag.Pro = Producto;
             return View();

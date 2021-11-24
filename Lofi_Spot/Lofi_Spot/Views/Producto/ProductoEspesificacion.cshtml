@@ -17,7 +17,7 @@
         }
 
         .menu__user {
-            background-image: url(../assets/user.svg);
+            background-image: url(/assets/user.svg);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -101,7 +101,7 @@
                         <li class="menu__logo"><img class="menu__logo__img" style="height: 90%; width: 100px;" src="/img/LofiSpot (1).png" alt=""></li>
 
                         <li class="menu__item">
-                            <a href="#" class="menu__link">Home</a>
+                            <a href="/Producto/ProductoCarrusel" class="menu__link">Home</a>
                         </li>
 
                         <li class="menu__item">
@@ -109,7 +109,7 @@
                         </li>
 
                         <li class="menu__item">
-                            <a href="#" class="menu__link">Ver productos</a>
+                            <a href="/Producto/ProductoCarrusel" class="menu__link">Ver productos</a>
                         </li>
                     </ul>
 
@@ -118,13 +118,25 @@
                             <div class="menu__user"></div>
 
                             <ul class="menu__nesting__user">
-                                <li class="menu__inside__user">
-                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">Nombre usu</div>
-                                </li>
-                                <li class="separador__nombreusu"></li>
-                                <li class="menu__inside">
-                                    <a href="#" class="menu__link__user menu__link__user--inside">Informacion de cuenta</a>
-                                </li>
+                                @if (ViewBag.usercount != 0)
+                                {
+                                    @foreach (var item in ViewBag.user)
+                                    {
+                                        <li class="menu__inside__user">
+                                            <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@item.Nick</div>
+                                        </li>
+                                        <li class="separador__nombreusu"></li>
+                                        <li class="menu__inside">
+                                            <a href="#" class="menu__link__user menu__link__user--inside">Informacion de cuenta</a>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="menu__inside">
+                                        <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
+                                    </li>
+                                }
                             </ul>
                         </div>
 

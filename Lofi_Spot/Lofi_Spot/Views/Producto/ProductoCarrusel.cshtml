@@ -38,7 +38,7 @@
                                 @foreach (var item in ViewBag.Categoria)
                                 {
                                     <li class="menu__inside">
-                                        <a href="/Producto/ProductoGeneral/@item.CategoriaID" class="menu__link menu__link--inside">@item.Categoria</a>
+                                        <a href="#@item.Categoria" class="menu__link menu__link--inside">@item.Categoria</a>
                                     </li>
                                 }
                             </ul>
@@ -50,13 +50,25 @@
                             <div class="menu__user"></div>
 
                             <ul class="menu__nesting__user">
+                                @if (ViewBag.usercount != 0)
+                                {
+                                @foreach (var item in ViewBag.user)
+                                {
                                 <li class="menu__inside__user">
-                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">Nombre usu</div>
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@item.Nick</div>
                                 </li>
                                 <li class="separador__nombreusu"></li>
                                 <li class="menu__inside">
                                     <a href="#" class="menu__link__user menu__link__user--inside">Informacion de cuenta</a>
                                 </li>
+                                }
+                                }
+                                else 
+                                { 
+                            <li class="menu__inside">
+                                <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
+                            </li>
+                                }
                             </ul>
                         </div>
 
@@ -67,7 +79,7 @@
     </header>
 
     <div class="cont__icon">
-        <a href="ProductPage.html" class="pic">
+        <a href="/Carritos/Listado" class="pic">
             <img src="~/assets/car.svg" class="caricon__ico">
 
         </a>
@@ -75,7 +87,7 @@
     @foreach (var cat in ViewBag.Categoria)
     {
         <div class="Carousel">
-            <h2>@cat.Categoria</h2>
+            <h2 id="@cat.Categoria">@cat.Categoria</h2>
             <div class="slick-list" id="slick-list">
                 <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev"
                         onclick="app.processingButton(event)">

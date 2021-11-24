@@ -21,31 +21,59 @@ namespace Lofi_Spot.Controllers
 
         public IActionResult Listado()
         {
-            var lista = icarritos.List().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).Select(x => x).ToList();
+            if (ElementosEstaticos.IDUser != 0) {
+                var lista = icarritos.List().Where(x => (x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito) & x.estado == 1).Select(x => x).ToList();
+                ElementosEstaticos.carritos = lista;
+                ViewBag.ls = lista;
 
-            ViewBag.ls = lista;
-
-            return View();
+                return View();
+            }
+            else
+            {
+                return Redirect("/Usuario/Login");
+            }
         }
         [HttpGet]
         public IActionResult RealizarCompra()
         {
-            var lista = icarritos.List().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).Select(x => x).ToList();
-            decimal total = 0;
-            foreach (var datos in lista)
-            {
-                decimal suma = (datos.Cantidad * datos.Producto.Precio);
-                total += suma;
+            if (ElementosEstaticos.Direccion != 1 & ElementosEstaticos.Tarjeta != 1) {
+                decimal total = 0;
+                foreach (var datos in ElementosEstaticos.carritos)
+                {
+                    decimal suma = (datos.Cantidad * datos.Producto.Precio);
+                    total += suma;
+
+                    Carritos cr = new Carritos();
+                    cr.CarritoID = datos.CarritoID;
+                    cr.Cantidad = datos.Cantidad;
+                    cr.ProductoID = datos.ProductoID;
+                    cr.NumeroCarritoID = datos.NumeroCarritoID;
+                    cr.estado = 0;
+                    icarritos.Update(cr);
+                }
+
+
+                DetalleDeCompras dtc = new DetalleDeCompras();
+                dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
+                dtc.Total = total;
+                idetalles.Insert(dtc);
+                return Redirect("/Producto/ProductoCarrusel");
             }
-
-            DetalleDeCompras dtc = new DetalleDeCompras();
-            dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
-            dtc.Total = total;
-
-            idetalles.Insert(dtc);
-            return Redirect("/Producto/ProductoCarrusel");
+            else if (ElementosEstaticos.Direccion == 1)
+            {
+                return Redirect("/Direccion/Datos");
+            }
+            else if (ElementosEstaticos.Tarjeta == 1 )
+            {
+                return Redirect("/Tarjeta/Datos");
+            }
+            else
+            {
+                return Redirect("/Usuario/Login");
+            }
         }
-
+     
+        
         [HttpPost]
         public IActionResult GuardarCarrito(Carritos carritos)
         {
