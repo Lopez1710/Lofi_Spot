@@ -1,0 +1,321 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-size: 12.5px;
+}
+
+html {
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(226,226,226,1) 110%);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 96px auto 0;
+    max-width: 800px;
+    border: 1px solid #aaa;
+    background: snow;
+    padding: 32px;
+}
+
+.group:after,
+.row:after,
+.receiptlist-footer:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.con,
+.info,
+.me,
+.logoholder, [class*="con-"] {
+    vertical-align: top;
+    display: inline-block;
+    padding: 0 10px;
+    min-height: 1px;
+}
+
+details,
+header,
+section {
+    display: block;
+}
+
+select {
+    text-transform: none;
+}
+
+
+.control-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-image: linear-gradient(180deg, #a6ffff 0, #a2edff 25%, #9dd5f2 50%, #96bed5 75%, #8ea8b9 100%);
+    line-height: 50px;
+    height: 50px
+}
+
+.container {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.row {
+    position: relative;
+    display: block;
+    font-size: 0;
+    width: 100%;
+}
+
+.con-1, .con-2 {
+    width: 47.5%;
+}
+
+.control-bar .slogan {
+    font-weight: bold;
+    font-size: 19.2px;
+    display: inline-block;
+    margin-right: 32px
+}
+
+.text-right {
+    text-align: right;
+}
+
+a, .bi-printer {
+    background-color: transparent;
+    color: #018a7e;
+    text-decoration: none
+}
+
+    a:active, a:hover {
+        outline: 0;
+    }
+
+.control-bar a {
+    margin: 0;
+    padding: 8px 16px;
+    background: rgba(219, 246, 253, 0.8);
+}
+
+strong {
+    font-weight: bold;
+}
+
+.control-bar a:hover {
+    padding: 8px 20px;
+    background: #9ae1ee;
+}
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+
+header {
+    margin: 16px 0 0;
+    padding: 0 0 32px 0;
+    border-bottom: 3pt solid #018a7e
+}
+
+    header a {
+        color: #000;
+    }
+
+.text-center {
+    text-align: center;
+}
+
+.logoholder {
+    text-align: left;
+}
+
+.me, .info, .logoholder {
+    width: 30%;
+}
+
+.section {
+    margin: 32px 0 0;
+}
+
+.con-3 {
+    width: 45%;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+    color: #009688
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 29px;
+    color: #009688
+}
+
+p,
+header p {
+    margin: 0;
+}
+
+.details input {
+    display: inline;
+    margin: 0 0 0 8px;
+    border: none;
+    width: 128px;
+    min-width: 0;
+    background: transparent;
+}
+
+input {
+    line-height: normal;
+}
+
+input,
+select {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.client {
+    padding: 16px;
+    margin: 0 0 3rem 0
+}
+
+[contenteditable]:hover,
+[contenteditable]:focus,
+input:hover,
+input:focus {
+    background: #f1dddd;
+    outline: 1px solid #292b2a
+}
+
+.con-4 {
+    width: 96%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.receipt_detail {
+    border: solid 1px #009688;
+    padding: 10px;
+    height: 25px;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 0;
+}
+
+.receiptlist-body {
+    margin: 16px;
+}
+
+    .receiptlist-body table {
+        width: 100%;
+    }
+
+    .receiptlist-body thead {
+        text-align: left;
+        border-bottom: 1pt solid #666;
+    }
+
+    .receiptlist-body th,
+    .receiptlist-body td {
+        position: relative;
+        padding: 16px;
+    }
+
+    .receiptlist-body input {
+        display: inline;
+        margin: 0;
+        border: none;
+        width: 80%;
+        min-width: 0;
+        background: transparent;
+        text-align: left;
+    }
+
+    .receiptlist-body .control {
+        display: inline-block;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+        .receiptlist-body .control:hover {
+            background: #83c5df;
+        }
+
+.receiptlist-footer {
+    margin: 16px;
+}
+
+    .receiptlist-footer table {
+        float: right;
+        width: 25%;
+    }
+
+        .receiptlist-footer table td {
+            padding: 16px 32px 0 16px;
+            text-align: right;
+        }
+
+
+        .receiptlist-footer table #total_price {
+            font-size: 30px;
+            color: #009688;
+        }
+
+.price:before,
+.sum:before,
+#total_price:before {
+    content: '$';
+}
+
+
+@media print {
+    html {
+        margin: 0;
+        padding: 0;
+        background: #fff
+    }
+
+    body {
+        width: 100%;
+        border: none;
+        background: #fff;
+        color: #000;
+        margin: 0;
+        padding: 0
+    }
+
+    .control,
+    .control-bar {
+        display: none !important
+    }
+
+    [contenteditable]:hover,
+    [contenteditable]:focus {
+        outline: none
+    }
+}
