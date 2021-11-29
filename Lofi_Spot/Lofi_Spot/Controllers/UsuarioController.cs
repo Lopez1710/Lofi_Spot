@@ -18,7 +18,7 @@ namespace Lofi_Spot.Controllers
         private ITarjetas itarjetas;
         private IDirecciones idirecciones;
 
-        public UsuarioController(IUsuarios iusuario,INumeroCarrito inumerocarrito, ITarjetas itarjetas, IDirecciones idirecciones)
+        public UsuarioController(IUsuarios iusuario, INumeroCarrito inumerocarrito, ITarjetas itarjetas, IDirecciones idirecciones)
         {
             this.inumerocarrito = inumerocarrito;
             this.iusuario = iusuario;
@@ -42,7 +42,7 @@ namespace Lofi_Spot.Controllers
         {
             var existe = iusuario.List().Where(x => (x.Email == usuario.Email || x.Nick == usuario.Nick)).Select(x => x.UsuarioID).FirstOrDefault();
 
-            if (existe==0) {
+            if (existe == 0) {
                 Usuarios us = new Usuarios();
                 us.Nick = usuario.Nick;
                 us.Email = usuario.Email;
@@ -66,7 +66,7 @@ namespace Lofi_Spot.Controllers
             }
             else
             {
-                var email = iusuario.List().Where(x => x.Email==usuario.Email).Select(x => x.UsuarioID).FirstOrDefault();
+                var email = iusuario.List().Where(x => x.Email == usuario.Email).Select(x => x.UsuarioID).FirstOrDefault();
                 var Nick = iusuario.List().Where(x => x.Nick == usuario.Nick).Select(x => x.UsuarioID).FirstOrDefault();
 
                 if (Nick != 0 && email != 0)
@@ -74,7 +74,7 @@ namespace Lofi_Spot.Controllers
                     ViewBag.nick = 2;
                     ViewBag.email = 1;
                 }
-                else if(Nick != 0)
+                else if (Nick != 0)
                 {
                     ViewBag.nick = 2;
                 }
@@ -82,7 +82,7 @@ namespace Lofi_Spot.Controllers
                 {
                     ViewBag.email = 1;
                 }
-                
+
                 return View();
             }
         }
@@ -90,13 +90,13 @@ namespace Lofi_Spot.Controllers
         [HttpPost]
         public IActionResult Login(string User, string Pass)
         {
-            
+
             var Ncarrito = inumerocarrito.List();
             var Lista = iusuario.List();
             var autentificacion = (from usuario in Lista
-                                  where ((usuario.Email == User || usuario.Nick == User)
-                                  & usuario.Pass == Pass)
-                                  select usuario).ToList();
+                                   where ((usuario.Email == User || usuario.Nick == User)
+                                   & usuario.Pass == Pass)
+                                   select usuario).ToList();
 
             ElementosEstaticos.usuario = autentificacion;
 
@@ -104,7 +104,7 @@ namespace Lofi_Spot.Controllers
             var Tarjeta = autentificacion.Select(x => x.TarjetaID).FirstOrDefault();
             var Rol = autentificacion.Select(x => x.RolID).FirstOrDefault();
             var Direccion = autentificacion.Select(x => x.DireccionID).FirstOrDefault();
-            var CarritoN = Ncarrito.Where(x => x.UsuarioID == IDUser).Select(x => x.NumeroCarritoID).FirstOrDefault(); 
+            var CarritoN = Ncarrito.Where(x => x.UsuarioID == IDUser).Select(x => x.NumeroCarritoID).FirstOrDefault();
 
             if (IDUser != 0)
             {
@@ -131,8 +131,8 @@ namespace Lofi_Spot.Controllers
             else
             {
                 var existe = iusuario.List().Where(x => (x.Email == User || x.Nick == User)).Select(x => x).ToList();
-                ViewBag.error = existe.Count() ;
-               
+                ViewBag.error = existe.Count();
+
                 return View();
             }
         }
@@ -143,7 +143,7 @@ namespace Lofi_Spot.Controllers
             {
                 return RedirectToAction("Login");
             }
-            else 
+            else
             {
                 return View();
             }
@@ -158,7 +158,7 @@ namespace Lofi_Spot.Controllers
             DateTime F = Convert.ToDateTime(fecha);
 
             var usuario = ElementosEstaticos.usuario;
-            var existe = itarjetas.List().Where(x =>x.TarjetaID == Convert.ToInt32(Tarjeta) & x.Fecha == F & x.CVV == Convert.ToInt32(Pepe)).Select(x => x).ToList();
+            var existe = itarjetas.List().Where(x => x.TarjetaID == Convert.ToInt32(Tarjeta) & x.Fecha == F & x.CVV == Convert.ToInt32(Pepe)).Select(x => x).ToList();
 
             if (existe.Count() != 0)
             {
@@ -177,7 +177,7 @@ namespace Lofi_Spot.Controllers
 
                 return Redirect("/Carritos/Listado");
             }
-            else 
+            else
             {
                 ViewBag.Error = 1;
                 return View();
@@ -196,7 +196,7 @@ namespace Lofi_Spot.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Direccion(string Departamento,string Localidad,int CP )
+        public IActionResult Direccion(string Departamento, string Localidad, int CP)
         {
             if (ElementosEstaticos.IDUser != 0)
             {
@@ -257,6 +257,20 @@ namespace Lofi_Spot.Controllers
                 return RedirectToAction("Login");
             }
         }
+        public IActionResult CerrarSesion()
+        {
+            ElementosEstaticos.IDUser = 0;
+            ElementosEstaticos.Tarjeta = 0;
+            ElementosEstaticos.Direccion = 0;
+            ElementosEstaticos.Rol = 0;
+
+            ElementosEstaticos.usuario = null;
+            ElementosEstaticos.carritos = null;
+            ElementosEstaticos.DF = null;
+
+            return RedirectToAction("Login");
+        }
+
         public IActionResult Terminos()
         { 
             return View();
