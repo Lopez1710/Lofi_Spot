@@ -1,6 +1,7 @@
 ﻿using Lofi_Spot.Data;
 using Lofi_Spot.Dominio;
 using Lofi_Spot.Service;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,8 @@ namespace Lofi_Spot.Repository
 
         public List<Usuarios> List()
         {
-           return DB.Usuarios.ToList();
+            var union = DB.Usuarios.Include(x => x.Direccion).ToList();
+            return union;
         }
 
         public void Update(Usuarios U)

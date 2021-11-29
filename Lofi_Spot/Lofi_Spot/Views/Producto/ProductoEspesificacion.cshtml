@@ -147,18 +147,20 @@
     </header>
 
     <div class="separador1"></div>
-    @foreach (var prod in ViewBag.Pro)
-    {
-        <div class="content__container">
-            <div class="content_info content_info1 ">
+
+    <div class="content__container">
+
+        @foreach (var prod in ViewBag.Pro)
+        {
+            <div class="content__info content__info1 ">
                 <img src="@prod.Imagenes" class="info1__img">
             </div>
-            <div class="content_info content_info2">
-                <div class="content_info2g contentinfo2_i">
+            <div class="content__info content__info2">
+                <div class="content__info2__g content__info2__i">
                     <span class="span__infoH">@prod.Producto</span>
                     <div class="separador_productdesc"></div>
 
-                    <div class="content_info_conSpan">
+                    <div class="content__info__conSpan">
                         <span class="span__info2">
                             @prod.Descripcion
                         </span>
@@ -166,30 +168,37 @@
 
                 </div>
 
-                <div class="content_info2g contentinfo2_c">
+                <div class="content__info2__g content__info2__c">
 
-                    <label class="precio">$@prod.Precio</label>
+                    <label class="precio">@prod.Precio</label>
                     <div class="separador__continfo2"></div>
                     <label class="cantidad">Cantidad: </label>
-                    <form action="/Carritos/GuardarCarrito/" method="post">
+                    <form action="/Carritos/GuardarCarrito" method="post">
                         <input value="@prod.ProductoID" type="hidden" name="ProductoID" />
                         <select class="select" name="Cantidad">
                             @foreach (var cant in ViewBag.Cant)
                             {
                                 <option>@cant</option>
                             }
+
                         </select>
                         <div class="separador__continfo2"></div>
                         <input type="submit" value="Agregar al carrito" class="button">
                     </form>
+
                     <a href="/Producto/ProductoCarrusel">
                         <input type="button" value="Ver otros productos" class="button">
                     </a>
 
                 </div>
             </div>
-        </div>}
+        }
+
+
+    </div>
+
     <div class="separadorContentFooter"></div>
+
     <footer>
         <div class="footer__link">
             <a href="#inicio" class="footer__inicio">Inicio de página</a>

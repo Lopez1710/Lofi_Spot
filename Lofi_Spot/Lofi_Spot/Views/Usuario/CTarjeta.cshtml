@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Lato|Liu+Jian+Mao+Cao&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="/css/estilo.css">
     <title>Document</title>
 </head>
 <body>
@@ -21,15 +21,19 @@
         </p>
     </div>
     <div class="container">
-        <form action="" method="post" class="card">
+        @if (ViewBag.Error == 1)
+        {
+            <h2 style="stop-color:red">Datos de la Tarjeta Incorrectos</h2>
+        }
+        <form action="/Usuario/CTarjeta" method="post" class="card">
             <div class="grupo">
                 <label for="">Card Number</label>
-                <input type="text" placeholder="##### #### #### ####">
+                <input Name="Tarjeta" type="text" placeholder="##### #### #### ####" required>
             </div>
 
             <div class="grupo">
                 <label for="inputNombre">Name</label>
-                <input type="text" id="inputNombre" maxlength="19" autocomplete="off">
+                <input type="text" Name="Nombre" maxlength="19" autocomplete="off" required>
             </div>
 
             <div class="flexbox">
@@ -37,7 +41,7 @@
                     <label for="">Expiration Date</label>
                     <div class="flexbox">
                         <div class="grupo-select">
-                            <select name="mes" id="">
+                            <select name="mes" id="Mes" required>
                                 <option value="">Month</option>
                                 <option value="1">01</option>
                                 <option value="2">02</option>
@@ -55,7 +59,7 @@
                         </div>
 
                         <div class="grupo-select">
-                            <select name="year" id="selectYear">
+                            <select name="year" id="Year" required>
                                 <option selected>Year</option>
                                 <option value="2021">2021</option>
                                 <option value="2022">2022</option>
@@ -66,6 +70,7 @@
                                 <option value="2027">2027</option>
                                 <option value="2028">2028</option>
                                 <option value="2029">2029</option>
+                                <option value="2030">2030</option>
                             </select>
 
                         </div>
@@ -75,8 +80,8 @@
                 </div>
 
                 <div class="grupo ccv">
-                    <label for="inputCCV">CCV</label>
-                    <input type="text" id="" maxlength="3">
+                    <label for="inputCCV">CVV</label>
+                    <input type="text" name="Pepe" maxlength="3" required>
                 </div>
             </div>
 
@@ -87,7 +92,10 @@
                 </svg>
             </button>
         </form>
+        <a href="/Usuario/Terminos">Terminos y condiciones</a>
     </div>
+
 
 </body>
 </html>
+

@@ -15,10 +15,15 @@ namespace Lofi_Spot.Controllers
     {
         private IUsuarios iusuario;
         private INumeroCarrito inumerocarrito;
-        public UsuarioController(IUsuarios iusuario,INumeroCarrito inumerocarrito)
+        private ITarjetas itarjetas;
+        private IDirecciones idirecciones;
+
+        public UsuarioController(IUsuarios iusuario,INumeroCarrito inumerocarrito, ITarjetas itarjetas, IDirecciones idirecciones)
         {
             this.inumerocarrito = inumerocarrito;
             this.iusuario = iusuario;
+            this.itarjetas = itarjetas;
+            this.idirecciones = idirecciones;
         }
 
         public IActionResult Registro()
@@ -93,6 +98,8 @@ namespace Lofi_Spot.Controllers
                                   & usuario.Pass == Pass)
                                   select usuario).ToList();
 
+            ElementosEstaticos.usuario = autentificacion;
+
             var IDUser = autentificacion.Select(x => x.UsuarioID).FirstOrDefault();
             var Tarjeta = autentificacion.Select(x => x.TarjetaID).FirstOrDefault();
             var Rol = autentificacion.Select(x => x.RolID).FirstOrDefault();
@@ -127,7 +134,132 @@ namespace Lofi_Spot.Controllers
                 ViewBag.error = existe.Count() ;
                
                 return View();
+            }
+        }
+
+        public IActionResult CTarjeta()
+        {
+            if (ElementosEstaticos.IDUser == 0)
+            {
+                return RedirectToAction("Login");
+            }
+            else 
+            {
+                return View();
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult CTarjeta(string Tarjeta, string Mes, string Year, string Pepe, string Nombre)
+        {
+
+            string fecha = Mes + "/" + Year;
+            DateTime F = Convert.ToDateTime(fecha);
+
+            var usuario = ElementosEstaticos.usuario;
+            var existe = itarjetas.List().Where(x =>x.TarjetaID == Convert.ToInt32(Tarjeta) & x.Fecha == F & x.CVV == Convert.ToInt32(Pepe)).Select(x => x).ToList();
+
+            if (existe.Count() != 0)
+            {
+                Usuarios user = new Usuarios();
+                user.UsuarioID = ElementosEstaticos.IDUser;
+                user.Nick = usuario.Select(x => x.Nick).FirstOrDefault();
+                user.Email = usuario.Select(x => x.Email).FirstOrDefault();
+                user.Pass = usuario.Select(x => x.Pass).FirstOrDefault();
+                user.TarjetaID = Convert.ToInt32(Tarjeta);
+                user.DireccionID = 1;
+                user.RolID = ElementosEstaticos.Rol;
+
+                iusuario.Update(user);
+
+                ElementosEstaticos.Tarjeta = Convert.ToInt32(Tarjeta);
+
+                return Redirect("/Carritos/Listado");
+            }
+            else 
+            {
+                ViewBag.Error = 1;
+                return View();
+            }
+
+        }
+        public IActionResult Direccion()
+        {
+            if (ElementosEstaticos.IDUser != 0)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        [HttpPost]
+        public IActionResult Direccion(string Departamento,string Localidad,int CP )
+        {
+            if (ElementosEstaticos.IDUser != 0)
+            {
+                var existe = idirecciones.List().Where(x => x.Departamento == Departamento & x.Localidad == Localidad & x.CP == CP).Select(x => x).ToList();
+
+
+                if (existe.Count() != 0)
+                {
+                    Usuarios us = new Usuarios();
+
+                    us.UsuarioID = ElementosEstaticos.usuario.Select(x => x.UsuarioID).FirstOrDefault();
+                    us.Nick = ElementosEstaticos.usuario.Select(x => x.Nick).FirstOrDefault();
+                    us.Email = ElementosEstaticos.usuario.Select(x => x.Email).FirstOrDefault();
+                    us.Pass = ElementosEstaticos.usuario.Select(x => x.Pass).FirstOrDefault();
+                    us.TarjetaID = ElementosEstaticos.usuario.Select(x => x.TarjetaID).FirstOrDefault();
+                    us.RolID = ElementosEstaticos.usuario.Select(x => x.RolID).FirstOrDefault();
+                    us.DireccionID = existe.Select(x => x.DireccionID).FirstOrDefault();
+                    iusuario.Update(us);
+                    ElementosEstaticos.Direccion = existe.Select(x => x.DireccionID).FirstOrDefault();
+
+                    var usuario = iusuario.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();
+                    ElementosEstaticos.usuario = usuario;
+
+                    return Redirect("/Carritos/Listado");
                 }
+                else
+                {
+                    Direcciones direc = new Direcciones();
+
+                    direc.Departamento = Departamento;
+                    direc.Localidad = Localidad;
+                    direc.CP = CP;
+
+                    idirecciones.Insert(direc);
+
+                    var direccion = idirecciones.List().Where(x => x.Departamento == Departamento & x.Localidad == Localidad & x.CP == CP).Select(x => x).ToList();
+
+                    Usuarios us = new Usuarios();
+
+                    us.UsuarioID = ElementosEstaticos.usuario.Select(x => x.UsuarioID).FirstOrDefault();
+                    us.Nick = ElementosEstaticos.usuario.Select(x => x.Nick).FirstOrDefault();
+                    us.Email = ElementosEstaticos.usuario.Select(x => x.Email).FirstOrDefault();
+                    us.Pass = ElementosEstaticos.usuario.Select(x => x.Pass).FirstOrDefault();
+                    us.TarjetaID = ElementosEstaticos.usuario.Select(x => x.TarjetaID).FirstOrDefault();
+                    us.RolID = ElementosEstaticos.usuario.Select(x => x.RolID).FirstOrDefault();
+                    us.DireccionID = direccion.Select(x => x.DireccionID).FirstOrDefault();
+                    iusuario.Update(us);
+                    ElementosEstaticos.Direccion = direccion.Select(x => x.DireccionID).FirstOrDefault();
+
+                    var usuario = iusuario.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();
+                    ElementosEstaticos.usuario = usuario;
+
+                    return Redirect("/Carritos/Listado");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        public IActionResult Terminos()
+        { 
+            return View();
         }
     }
 }

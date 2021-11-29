@@ -23,6 +23,8 @@ namespace Lofi_Spot.Controllers
         }
         public IActionResult ProductoCarrusel()
         {
+            ElementosEstaticos.comprobacion = 0;
+
             var categorias = icategoria.List();
             var productos = iproducto.List();
             var usuario = iusuarios.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();

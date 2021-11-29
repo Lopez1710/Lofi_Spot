@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lofi_Spot.Migrations
 {
-    public partial class Migrations : Migration
+    public partial class Migratons : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -150,7 +150,8 @@ namespace Lofi_Spot.Migrations
                     Cantidad = table.Column<int>(type: "int", nullable: false),
                     ProductoID = table.Column<int>(type: "int", nullable: false),
                     NumeroCarritoID = table.Column<int>(type: "int", nullable: false),
-                    estado = table.Column<int>(type: "int", nullable: false)
+                    estado = table.Column<int>(type: "int", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,6 +190,48 @@ namespace Lofi_Spot.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Factura",
+                columns: table => new
+                {
+                    FacturaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NumeroCarritoID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Factura", x => x.FacturaID);
+                    table.ForeignKey(
+                        name: "FK_Factura_NumeroCarritos_NumeroCarritoID",
+                        column: x => x.NumeroCarritoID,
+                        principalTable: "NumeroCarritos",
+                        principalColumn: "NumeroCarritoID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DetalleFactura",
+                columns: table => new
+                {
+                    DetalleFacturaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Producto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FacturaID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetalleFactura", x => x.DetalleFacturaID);
+                    table.ForeignKey(
+                        name: "FK_DetalleFactura_Factura_FacturaID",
+                        column: x => x.FacturaID,
+                        principalTable: "Factura",
+                        principalColumn: "FacturaID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Carritos_NumeroCarritoID",
                 table: "Carritos",
@@ -202,6 +245,16 @@ namespace Lofi_Spot.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DetalleDeCompras_NumeroCarritoID",
                 table: "DetalleDeCompras",
+                column: "NumeroCarritoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetalleFactura_FacturaID",
+                table: "DetalleFactura",
+                column: "FacturaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Factura_NumeroCarritoID",
+                table: "Factura",
                 column: "NumeroCarritoID");
 
             migrationBuilder.CreateIndex(
@@ -239,13 +292,19 @@ namespace Lofi_Spot.Migrations
                 name: "DetalleDeCompras");
 
             migrationBuilder.DropTable(
+                name: "DetalleFactura");
+
+            migrationBuilder.DropTable(
                 name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "NumeroCarritos");
+                name: "Factura");
 
             migrationBuilder.DropTable(
                 name: "Categorias");
+
+            migrationBuilder.DropTable(
+                name: "NumeroCarritos");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

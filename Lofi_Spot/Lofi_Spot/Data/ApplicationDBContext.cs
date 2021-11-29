@@ -22,6 +22,8 @@ namespace Lofi_Spot.Data
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Carritos> Carritos { get; set; }
+        public DbSet<Factura> Factura { get; set; }
+        public DbSet<DetalleFactura> DetalleFactura { get; set; }
         public DbSet<DetalleDeCompras> DetalleDeCompras { get; set; }
         
 

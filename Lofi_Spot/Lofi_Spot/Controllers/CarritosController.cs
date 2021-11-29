@@ -12,11 +12,15 @@ namespace Lofi_Spot.Controllers
     {
         private ICarritos icarritos;
         private IDetallesDeCompras idetalles;
+        private IDetalleFactura idetalleFactura;
+        private IFactura ifactura;
 
-        public CarritosController(ICarritos icarritos, IDetallesDeCompras idetalles)
+        public CarritosController(ICarritos icarritos, IDetallesDeCompras idetalles, IDetalleFactura idetalleFactura, IFactura ifactura)
         {
             this.icarritos = icarritos;
             this.idetalles = idetalles;
+            this.idetalleFactura = idetalleFactura;
+            this.ifactura = ifactura;
         }
 
         public IActionResult Listado()
@@ -25,6 +29,7 @@ namespace Lofi_Spot.Controllers
                 var lista = icarritos.List().Where(x => (x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito) & x.estado == 1).Select(x => x).ToList();
                 ElementosEstaticos.carritos = lista;
                 ViewBag.ls = lista;
+                ViewBag.CB = ElementosEstaticos.comprobacion;
 
                 return View();
             }
@@ -37,35 +42,70 @@ namespace Lofi_Spot.Controllers
         public IActionResult RealizarCompra()
         {
             if (ElementosEstaticos.Direccion != 1 & ElementosEstaticos.Tarjeta != 1) {
-                decimal total = 0;
-                foreach (var datos in ElementosEstaticos.carritos)
+                if (ElementosEstaticos.carritos.Count() != 0)
                 {
-                    decimal suma = (datos.Cantidad * datos.Producto.Precio);
-                    total += suma;
+                    decimal total = 0;
+                    Factura F = new Factura();
 
-                    Carritos cr = new Carritos();
-                    cr.CarritoID = datos.CarritoID;
-                    cr.Cantidad = datos.Cantidad;
-                    cr.ProductoID = datos.ProductoID;
-                    cr.NumeroCarritoID = datos.NumeroCarritoID;
-                    cr.estado = 0;
-                    icarritos.Update(cr);
+                    F.Fecha = DateTime.Now;
+                    F.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
+
+                    ifactura.insert(F);
+
+                    foreach (var datos in ElementosEstaticos.carritos)
+                    {
+                        decimal suma = (datos.Cantidad * datos.Producto.Precio);
+                        total += suma;
+
+                        Carritos cr = new Carritos();
+                        cr.CarritoID = datos.CarritoID;
+                        cr.Cantidad = datos.Cantidad;
+                        cr.ProductoID = datos.ProductoID;
+                        cr.NumeroCarritoID = datos.NumeroCarritoID;
+                        cr.estado = 0;
+                        cr.Fecha = DateTime.Now;
+                        icarritos.Update(cr);
+                    }
+
+                    var carrito = ElementosEstaticos.carritos;
+                    DetalleDeCompras dtc = new DetalleDeCompras();
+                    dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
+                    dtc.Total = total;
+                    idetalles.Insert(dtc);
+
+                    var nf = ifactura.Listado().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).OrderByDescending(x => x.Fecha).Select(x => x).FirstOrDefault();
+                    ElementosEstaticos.NF = nf.FacturaID;
+                    ElementosEstaticos.Fecha = nf.Fecha.ToShortDateString();
+                    ElementosEstaticos.Hora = nf.Fecha.ToShortTimeString();
+
+                    foreach (var datos in ElementosEstaticos.carritos)
+                    {
+                        DetalleFactura factura = new DetalleFactura();
+
+                        factura.Cantidad = datos.Cantidad;
+                        factura.Precio = datos.Producto.Precio;
+                        factura.Producto = datos.Producto.Producto;
+                        factura.FacturaID = nf.FacturaID;
+
+                        idetalleFactura.insert(factura);
+                    }
+                    var DF = idetalleFactura.Listado().Where(x => x.FacturaID == nf.FacturaID).Select(x => x).ToList();
+                    ElementosEstaticos.DF = DF;
+                    return Redirect("/Recibo/Recibo");
                 }
-
-
-                DetalleDeCompras dtc = new DetalleDeCompras();
-                dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
-                dtc.Total = total;
-                idetalles.Insert(dtc);
-                return Redirect("/Producto/ProductoCarrusel");
+                else 
+                {
+                    ElementosEstaticos.comprobacion = 1;
+                    return RedirectToAction("Listado");
+                }
+            }
+            else if (ElementosEstaticos.Tarjeta == 1)
+            {
+                return Redirect("/Usuario/CTarjeta");
             }
             else if (ElementosEstaticos.Direccion == 1)
             {
-                return Redirect("/Direccion/Datos");
-            }
-            else if (ElementosEstaticos.Tarjeta == 1 )
-            {
-                return Redirect("/Tarjeta/Datos");
+                return Redirect("/Usuario/Direccion");
             }
             else
             {
@@ -95,6 +135,27 @@ namespace Lofi_Spot.Controllers
             {
                 return Redirect("/Usuario/Login/"+ProductoEvaluado);
             }
+        }
+        [HttpPost]
+        public IActionResult EliminarP(int id)
+        {
+           
+            var elm = ElementosEstaticos.carritos.Where(x => x.CarritoID == id).Select(x=>x).ToList();
+
+            Carritos car = new Carritos();
+
+            car.CarritoID = elm.Select(x => x.CarritoID).FirstOrDefault();
+            car.Cantidad = elm.Select(x => x.Cantidad).FirstOrDefault();
+            car.ProductoID = elm.Select(x => x.ProductoID).FirstOrDefault();
+            car.NumeroCarritoID = elm.Select(x => x.NumeroCarritoID).FirstOrDefault();
+            car.estado = elm.Select(x => x.estado).FirstOrDefault();
+            car.Fecha = elm.Select(x => x.Fecha).FirstOrDefault();
+
+            icarritos.Delete(car);
+
+
+
+            return RedirectToAction("Listado");
         }
     }
 }

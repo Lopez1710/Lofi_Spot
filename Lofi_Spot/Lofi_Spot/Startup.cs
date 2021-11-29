@@ -40,6 +40,8 @@ namespace Lofi_Spot
             services.AddTransient <ITarjetas, TarjetasRepository> ();
             services.AddTransient <IUsuarios, UsuariosRepository> ();
             services.AddTransient <INumeroCarrito, NumeroCarritoRepository>();
+            services.AddTransient <IFactura, FacturaRepository>();
+            services.AddTransient <IDetalleFactura, DetalleFactura>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -29,6 +29,9 @@ namespace Lofi_Spot.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("NumeroCarritoID")
                         .HasColumnType("int");
 
@@ -82,6 +85,32 @@ namespace Lofi_Spot.Migrations
                     b.ToTable("DetalleDeCompras");
                 });
 
+            modelBuilder.Entity("Lofi_Spot.Dominio.DetalleFactura", b =>
+                {
+                    b.Property<int>("DetalleFacturaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacturaID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Producto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DetalleFacturaID");
+
+                    b.HasIndex("FacturaID");
+
+                    b.ToTable("DetalleFactura");
+                });
+
             modelBuilder.Entity("Lofi_Spot.Dominio.Direcciones", b =>
                 {
                     b.Property<int>("DireccionID")
@@ -101,6 +130,26 @@ namespace Lofi_Spot.Migrations
                     b.HasKey("DireccionID");
 
                     b.ToTable("Direcciones");
+                });
+
+            modelBuilder.Entity("Lofi_Spot.Dominio.Factura", b =>
+                {
+                    b.Property<int>("FacturaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NumeroCarritoID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FacturaID");
+
+                    b.HasIndex("NumeroCarritoID");
+
+                    b.ToTable("Factura");
                 });
 
             modelBuilder.Entity("Lofi_Spot.Dominio.NumeroCarritos", b =>
@@ -251,6 +300,28 @@ namespace Lofi_Spot.Migrations
                     b.Navigation("NumeroCarrito");
                 });
 
+            modelBuilder.Entity("Lofi_Spot.Dominio.DetalleFactura", b =>
+                {
+                    b.HasOne("Lofi_Spot.Dominio.Factura", "Factura")
+                        .WithMany("DetalleFactura")
+                        .HasForeignKey("FacturaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Factura");
+                });
+
+            modelBuilder.Entity("Lofi_Spot.Dominio.Factura", b =>
+                {
+                    b.HasOne("Lofi_Spot.Dominio.NumeroCarritos", "NumeroCarrito")
+                        .WithMany()
+                        .HasForeignKey("NumeroCarritoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NumeroCarrito");
+                });
+
             modelBuilder.Entity("Lofi_Spot.Dominio.NumeroCarritos", b =>
                 {
                     b.HasOne("Lofi_Spot.Dominio.Usuarios", "Usuario")
@@ -308,6 +379,11 @@ namespace Lofi_Spot.Migrations
             modelBuilder.Entity("Lofi_Spot.Dominio.Direcciones", b =>
                 {
                     b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Lofi_Spot.Dominio.Factura", b =>
+                {
+                    b.Navigation("DetalleFactura");
                 });
 
             modelBuilder.Entity("Lofi_Spot.Dominio.NumeroCarritos", b =>

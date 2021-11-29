@@ -16,7 +16,5 @@ namespace Lofi_Spot.Dominio
         public int NumeroCarritoID { get; set; }
         public NumeroCarritos NumeroCarrito { get; set; }
 
-
-
     }
 }

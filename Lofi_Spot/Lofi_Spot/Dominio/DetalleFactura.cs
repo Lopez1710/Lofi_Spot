@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace Lofi_Spot.Dominio
 {
-    public class Direcciones
+
+    public class DetalleFactura
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DireccionID { get; set; }
-        public string Departamento { get; set; }
-        public string Localidad { get; set; }
-        public int CP { get; set; }
-        public ICollection<Usuarios> Usuarios { get; set; }
+        public int DetalleFacturaID { get; set; }
+        public string Producto { get; set; }
+        public int Cantidad { get; set; }
+        public Decimal Precio { get; set; }
+        public int FacturaID { get; set; }
+        public Factura Factura { get; set; }
     }
 }
