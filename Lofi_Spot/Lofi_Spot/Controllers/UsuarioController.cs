@@ -147,18 +147,17 @@ namespace Lofi_Spot.Controllers
             {
                 return View();
             }
-
         }
 
         [HttpPost]
-        public IActionResult CTarjeta(string Tarjeta, string Mes, string Year, string Pepe, string Nombre)
+        public IActionResult CTarjeta(string Tarjeta, string Mes, string Year, string CVV, string Nombre)
         {
 
             string fecha = Mes + "/" + Year;
             DateTime F = Convert.ToDateTime(fecha);
 
             var usuario = ElementosEstaticos.usuario;
-            var existe = itarjetas.List().Where(x => x.TarjetaID == Convert.ToInt32(Tarjeta) & x.Fecha == F & x.CVV == Convert.ToInt32(Pepe)).Select(x => x).ToList();
+            var existe = itarjetas.List().Where(x => x.TarjetaID == Convert.ToInt32(Tarjeta) & x.Fecha == F & x.CVV == Convert.ToInt32(CVV)).Select(x => x).ToList();
 
             if (existe.Count() != 0)
             {
@@ -202,7 +201,7 @@ namespace Lofi_Spot.Controllers
             {
                 var existe = idirecciones.List().Where(x => x.Departamento == Departamento & x.Localidad == Localidad & x.CP == CP).Select(x => x).ToList();
 
-
+                
                 if (existe.Count() != 0)
                 {
                     Usuarios us = new Usuarios();

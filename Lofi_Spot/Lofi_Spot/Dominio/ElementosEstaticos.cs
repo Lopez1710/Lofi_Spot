@@ -19,7 +19,6 @@ namespace Lofi_Spot.Dominio
         public static string Fecha ="0";
         public static string Hora = "0";
 
-
         public static List<Usuarios> usuario;
         public static List<Carritos> carritos;
         public static List<DetalleFactura> DF;

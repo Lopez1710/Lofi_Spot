@@ -1,8 +1,130 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Inicio.css">
+    <title>Productos </title>
+</head>
+
+<body>
+    <header>
+        <div class="main__cont" id="inicio">
+            <nav class="menu">
+                <section class="menu__container">
+
+                    <ul class="menu__links">
+                        <h1 class="menu__logo">LofiSpot</h1>
+
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">Home</a>
+                        </li>          
+                        <li class="menu__item">
+                            <a href="#" class="menu__link">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="menu__others">
+                        <div class="menu__search">
+                            <img class="menu__search__icon" src="./assets/search.svg">
+                            <input type="text" class="menu__search__input">
+                        </div>
+                        <img class="menu__user" src="/assets/user.svg">
+                    </div>
+                </section>
+            </nav>
+        </div>
+    </header>
+
+    <div class="separador1"></div>
+    <div class="bienvenida">
+        <h1 class="bienvenida__h1">Bienvenido a LofiSpot</h1>
+    </div>
+    <div class="separador1"></div>
+
+    <div class="slider">
+        <ul>
+            <li><img src="/img/to-buy-3692440_1280.jpg"></li>
+            <li><img src="/img/ecommerce-2140603_1280.jpg"></li>
+            <li><img src="/img/woman-3040029_1280.jpg"></li>
+            <li><img src="/img/shopping-4000414_1280.jpg"></li>
+        </ul>
+    </div>
+    <div class="separadorSliderGalery"></div>
+
+    <div class="galery">
+        <div class="cont__galery">
+            <div class="galery__img1 galery__imgAll"></div>
+            <div class="span__galery__div">
+                <span class="span__galery">Nombre del producto</span>
+            </div>
+        </div>
+        <div class="cont__galery">
+            <div class="galery__img2 galery__imgAll"></div>
+            <div class="span__galery__div">
+                <span class="span__galery">Nombre del producto</span>
+            </div>
+        </div>
+        <div class="cont__galery">
+            <div class="galery__img3 galery__imgAll"></div>
+            <div class="span__galery__div">
+                <span class="span__galery">Nombre del producto</span>
+            </div>
+        </div>
+        <div class="cont__galery">
+            <div class="galery__img4 galery__imgAll"></div>
+            <div class="span__galery__div">
+                <span class="span__galery">Nombre del producto</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="separadorGaleryContent"></div>
+    <div class="content__container">
+        <div class="content__info content__info1 ">
+            <div class="info1__img"></div>
+        </div>
+        <div class="content__info content__info2">
+
+            <span class="span__infoH">Novedades</span>
+
+            <div class="content__info__conSpan">
+                <img src="/img/identidad-de-la-marca.png" class="span__icon">
+                <span class="span__info2">Producto</span>
+            </div>
+            <div class="content__info__conSpan">
+                <img src="/img/identidad-de-la-marca.png" class="span__icon">
+                <span class="span__info2">Producto</span>
+            </div>
+            <div class="content__info__conSpan">
+                <img src="/img/identidad-de-la-marca.png" class="span__icon">
+                <span class="span__info2">Producto</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="separadorContentFooter"></div>
+    <footer>
+        <div class="footer__link">
+            <a href="#inicio" class="footer__inicio">Inicio de página</a>
+        </div>
+        <div class="footer__container">
+            <div class="separador__contact"></div>
+            <span class="footer__Contact">Contacto</span>
+            <div class="separador__contact"></div>
+            <span class="footer__span"><a href="#" class="footer__a">correoPrueba@gmail.com</a></span>
+            <div class="separador__contact"></div>
+            <span class="footer__span">7645-2343</span>
+            <div class="separador__contact"></div>
+            <div class="footer__SocialNetwork">
+                <img src="/img/facebook.png" class="footer__icon">
+                <img src="/img/twitter.png" class="footer__icon">
+                <img src="/img/gmail-logo.png" class="footer__icon">
+            </div>
+            <div class="separador__contact"></div>
+        </div>
+    </footer>
+
+</body>
+

@@ -66,18 +66,18 @@ namespace Lofi_Spot.Controllers
                         cr.Fecha = DateTime.Now;
                         icarritos.Update(cr);
                     }
-
+                    
                     var carrito = ElementosEstaticos.carritos;
                     DetalleDeCompras dtc = new DetalleDeCompras();
                     dtc.NumeroCarritoID = ElementosEstaticos.NumeroCarrito;
                     dtc.Total = total;
                     idetalles.Insert(dtc);
-
+                    
                     var nf = ifactura.Listado().Where(x => x.NumeroCarritoID == ElementosEstaticos.NumeroCarrito).OrderByDescending(x => x.Fecha).Select(x => x).FirstOrDefault();
                     ElementosEstaticos.NF = nf.FacturaID;
                     ElementosEstaticos.Fecha = nf.Fecha.ToShortDateString();
                     ElementosEstaticos.Hora = nf.Fecha.ToShortTimeString();
-
+                    
                     foreach (var datos in ElementosEstaticos.carritos)
                     {
                         DetalleFactura factura = new DetalleFactura();
@@ -139,7 +139,6 @@ namespace Lofi_Spot.Controllers
         [HttpPost]
         public IActionResult EliminarP(int id)
         {
-           
             var elm = ElementosEstaticos.carritos.Where(x => x.CarritoID == id).Select(x=>x).ToList();
 
             Carritos car = new Carritos();
@@ -152,8 +151,6 @@ namespace Lofi_Spot.Controllers
             car.Fecha = elm.Select(x => x.Fecha).FirstOrDefault();
 
             icarritos.Delete(car);
-
-
 
             return RedirectToAction("Listado");
         }
