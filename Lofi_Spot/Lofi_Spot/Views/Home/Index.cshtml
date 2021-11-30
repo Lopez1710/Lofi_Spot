@@ -10,27 +10,144 @@
 </head>
 
 <body>
+    <style>
+        .span__galery__div {
+            padding-top: 20px;
+            height: 18%;
+            background-color: rgba(255, 241, 215, 0.637);
+            text-align: center;
+        }
+        .galery__imgAll {
+            height: 80%;
+            width: 100%;
+        }
+
+        .menu__others {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .menu__user {
+            background-image: url(/assets/user.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 40px;
+            width: 40px;
+        }
+
+        .menu__item__user {
+            list-style: none;
+            position: relative;
+            height: 100%;
+            --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+            --transform: rotate(-90deg);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+        }
+
+            .menu__item__user:hover {
+                --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                --transform: rotate(0);
+            }
+
+        .menu__nesting__user {
+            background-color: rgba(6, 0, 58, 0.8);
+            list-style: none;
+            transition: clip-path .3s;
+            clip-path: var(--clip);
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 250px;
+            transform: translateY(100%);
+        }
+
+        .menu__link__user {
+            text-decoration: none;
+            padding: 0 30px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            color: white;
+        }
+
+        .menu__link__user--inside {
+            /*padding: 30px 40px 30px 40px;*/
+            padding: 25px 40px;
+            background-color: rgba(4, 0, 37, 0.438);
+        }
+
+            .menu__link__user--inside:hover {
+                background-color: rgba(45, 48, 68, .8);
+            }
+
+        .menu__link__nameusu {
+            text-decoration: none;
+            padding: 0 30px;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            color: white;
+        }
+
+        .menu__link__nameusu--inside {
+            /*padding: 30px 40px 30px 40px;*/
+            padding: 25px 40px;
+            background-color: rgba(6, 0, 58, 0.438);
+        }
+
+        .separador__nombreusu {
+            height: 1px;
+            margin: 10px 0;
+        }
+    </style>
     <header>
         <div class="main__cont" id="inicio">
             <nav class="menu">
                 <section class="menu__container">
 
                     <ul class="menu__links">
-                        <h1 class="menu__logo">LofiSpot</h1>
+                        <li class="menu__logo"><img class="menu__logo__img" style="height: 90%; width: 100px;" src="/img/LofiSpot (1).png" alt=""></li>
 
-                        <li class="menu__item">
-                            <a href="#" class="menu__link">Home</a>
-                        </li>          
                         <li class="menu__item">
                             <a href="#" class="menu__link">Contact</a>
                         </li>
+
+                        <li class="menu__item">
+                            <a href="/Producto/ProductoCarrusel" class="menu__link">Ver productos</a>
+                        </li>
                     </ul>
+
                     <div class="menu__others">
-                        <div class="menu__search">
-                            <img class="menu__search__icon" src="./assets/search.svg">
-                            <input type="text" class="menu__search__input">
+                        <div class="menu__item__user">
+                            <div class="menu__user"></div>
+
+                            <ul class="menu__nesting__user">
+                                @*@if (ViewBag.usercount != 0)
+                                    {
+                                        @foreach (var item in ViewBag.user)
+                                        {*@
+                                <li class="menu__inside__user">
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@*@item.Nick*@</div>
+                                </li>
+                                <li class="separador__nombreusu"></li>
+                                <li class="menu__inside__user">
+                                    <a href="/Usuario/CerrarSesion" class="menu__link__nameusu menu__link__nameusu--inside">Cerrar Sesion</a>
+                                </li>
+                                @*}
+                                    }
+                                    else
+                                    {*@
+                                <li class="menu__inside">
+                                    <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
+                                </li>
+                                @*}*@
+                            </ul>
                         </div>
-                        <img class="menu__user" src="/assets/user.svg">
+
                     </div>
                 </section>
             </nav>
@@ -46,8 +163,8 @@
     <div class="slider">
         <ul>
             <li><img src="/img/to-buy-3692440_1280.jpg"></li>
-            <li><img src="/img/ecommerce-2140603_1280.jpg"></li>
             <li><img src="/img/woman-3040029_1280.jpg"></li>
+            <li><img src="/img/online-keyboard.jpg"></li>
             <li><img src="/img/shopping-4000414_1280.jpg"></li>
         </ul>
     </div>
@@ -55,27 +172,27 @@
 
     <div class="galery">
         <div class="cont__galery">
-            <div class="galery__img1 galery__imgAll"></div>
+            <img src="/img/Mouse.jpg" class="galery__img1 galery__imgAll"/>
             <div class="span__galery__div">
-                <span class="span__galery">Nombre del producto</span>
+                <span class="span__galery">Mouse Gamer</span>
             </div>
         </div>
         <div class="cont__galery">
-            <div class="galery__img2 galery__imgAll"></div>
+            <img src="/img/pedalera.jpg" class="galery__img2 galery__imgAll" />
             <div class="span__galery__div">
-                <span class="span__galery">Nombre del producto</span>
+                <span class="span__galery">Pedalera</span>
             </div>
         </div>
         <div class="cont__galery">
-            <div class="galery__img3 galery__imgAll"></div>
+            <img src="/img/Keyboard.png" class="galery__img3 galery__imgAll" />
             <div class="span__galery__div">
-                <span class="span__galery">Nombre del producto</span>
+                <span class="span__galery">Teclado Gamer</span>
             </div>
         </div>
         <div class="cont__galery">
-            <div class="galery__img4 galery__imgAll"></div>
+            <img src="/img/cafetera.jpg" class="galery__img4 galery__imgAll" />
             <div class="span__galery__div">
-                <span class="span__galery">Nombre del producto</span>
+                <span class="span__galery">Cafetera</span>
             </div>
         </div>
     </div>
@@ -113,14 +230,14 @@
             <div class="separador__contact"></div>
             <span class="footer__Contact">Contacto</span>
             <div class="separador__contact"></div>
-            <span class="footer__span"><a href="#" class="footer__a">correoPrueba@gmail.com</a></span>
+            <span class="footer__span"><a href="mailto:lofispots@gmail.com" class="footer__a">LofiSpots@gmail.com</a></span>
             <div class="separador__contact"></div>
             <span class="footer__span">7645-2343</span>
             <div class="separador__contact"></div>
             <div class="footer__SocialNetwork">
-                <img src="/img/facebook.png" class="footer__icon">
-                <img src="/img/twitter.png" class="footer__icon">
-                <img src="/img/gmail-logo.png" class="footer__icon">
+                <a href="https://www.facebook.com/profile.php?id=100074944750786" target="_blank"><img src="./img/facebook.png" class="footer__icon"></a>
+
+                <a href="mailto:lofispots@gmail.com"><img src="./img/gmail-logo.png" class="footer__icon"></a>
             </div>
             <div class="separador__contact"></div>
         </div>
