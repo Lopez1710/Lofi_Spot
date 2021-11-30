@@ -126,25 +126,25 @@
                             <div class="menu__user"></div>
 
                             <ul class="menu__nesting__user">
-                                @*@if (ViewBag.usercount != 0)
+                                @if (ViewBag.usercount != 0)
                                     {
                                         @foreach (var item in ViewBag.user)
-                                        {*@
+                                        {
                                 <li class="menu__inside__user">
-                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@*@item.Nick*@</div>
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@item.Nick</div>
                                 </li>
                                 <li class="separador__nombreusu"></li>
                                 <li class="menu__inside__user">
                                     <a href="/Usuario/CerrarSesion" class="menu__link__nameusu menu__link__nameusu--inside">Cerrar Sesion</a>
                                 </li>
-                                @*}
+                                }
                                     }
                                     else
-                                    {*@
+                                    {
                                 <li class="menu__inside">
                                     <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
                                 </li>
-                                @*}*@
+                                }
                             </ul>
                         </div>
 
@@ -171,30 +171,15 @@
     <div class="separadorSliderGalery"></div>
 
     <div class="galery">
-        <div class="cont__galery">
-            <img src="/img/Mouse.jpg" class="galery__img1 galery__imgAll"/>
-            <div class="span__galery__div">
-                <span class="span__galery">Mouse Gamer</span>
+        @foreach (var item in ViewBag.producto)
+        {
+            <div class="cont__galery">
+                <img src="@item.Imagenes" class="galery__img1 galery__imgAll" />
+                <div class="span__galery__div">
+                    <span class="span__galery">@item.Producto</span>
+                </div>
             </div>
-        </div>
-        <div class="cont__galery">
-            <img src="/img/pedalera.jpg" class="galery__img2 galery__imgAll" />
-            <div class="span__galery__div">
-                <span class="span__galery">Pedalera</span>
-            </div>
-        </div>
-        <div class="cont__galery">
-            <img src="/img/Keyboard.png" class="galery__img3 galery__imgAll" />
-            <div class="span__galery__div">
-                <span class="span__galery">Teclado Gamer</span>
-            </div>
-        </div>
-        <div class="cont__galery">
-            <img src="/img/cafetera.jpg" class="galery__img4 galery__imgAll" />
-            <div class="span__galery__div">
-                <span class="span__galery">Cafetera</span>
-            </div>
-        </div>
+        }
     </div>
 
     <div class="separadorGaleryContent"></div>
@@ -205,19 +190,14 @@
         <div class="content__info content__info2">
 
             <span class="span__infoH">Novedades</span>
+            @foreach (var item in ViewBag.categorias)
+            {
+                <div class="content__info__conSpan">
+                    <img src="/img/identidad-de-la-marca.png" class="span__icon">
+                    <span class="span__info2">@item.Categoria</span>
+                </div>
 
-            <div class="content__info__conSpan">
-                <img src="/img/identidad-de-la-marca.png" class="span__icon">
-                <span class="span__info2">Producto</span>
-            </div>
-            <div class="content__info__conSpan">
-                <img src="/img/identidad-de-la-marca.png" class="span__icon">
-                <span class="span__info2">Producto</span>
-            </div>
-            <div class="content__info__conSpan">
-                <img src="/img/identidad-de-la-marca.png" class="span__icon">
-                <span class="span__info2">Producto</span>
-            </div>
+            }
         </div>
     </div>
 
@@ -241,6 +221,7 @@
             </div>
             <div class="separador__contact"></div>
         </div>
+         <a href="/Usuario/Terminos">Terminos y condiciones</a>
     </footer>
 
 </body>

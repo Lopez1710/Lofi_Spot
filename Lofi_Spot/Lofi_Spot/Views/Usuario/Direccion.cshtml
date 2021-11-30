@@ -17,7 +17,7 @@
                         <li class="menu__logo"><img class="menu__logo__img" src="/img/LofiSpot (1).png" alt=""></li>
 
                         <li class="menu__item">
-                            <a href="#" class="menu__link">Home</a>
+                            <a href="/Home/Index" class="menu__link">Home</a>
                         </li>
                         <li class="menu__item">
                             <a href="mailto:lofispots@gmail.com" class="menu__link">Contact</a>
@@ -30,25 +30,25 @@
                             <div class="menu__user"></div>
 
                             <ul class="menu__nesting__user">
-                                @*@if (ViewBag.usercount != 0)
+                                @if (ViewBag.usercount != 0)
                                     {
                                         @foreach (var item in ViewBag.user)
-                                        {*@
+                                        {
                                 <li class="menu__inside__user">
-                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@*@item.Nick*@</div>
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@item.Nick</div>
                                 </li>
                                 <li class="separador__nombreusu"></li>
                                 <li class="menu__inside__user">
                                     <a href="/Usuario/CerrarSesion" class="menu__link__nameusu menu__link__nameusu--inside">Cerrar Sesion</a>
                                 </li>
-                                @*}
+                                }
                                     }
                                     else
-                                    {*@
+                                    {
                                 <li class="menu__inside">
                                     <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
                                 </li>
-                                @*}*@
+                                }
                             </ul>
                         </div>
 

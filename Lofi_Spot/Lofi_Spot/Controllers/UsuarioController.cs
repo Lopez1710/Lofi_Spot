@@ -187,6 +187,10 @@ namespace Lofi_Spot.Controllers
         {
             if (ElementosEstaticos.IDUser != 0)
             {
+                var usuario = iusuario.List().Where(x => x.UsuarioID == ElementosEstaticos.IDUser).Select(x => x).ToList();
+
+                ViewBag.usercount = usuario.Count();
+                ViewBag.user = usuario;
                 return View();
             }
             else
