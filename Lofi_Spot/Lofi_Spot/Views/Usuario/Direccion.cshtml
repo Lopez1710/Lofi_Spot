@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/Productos.css">
+    <link rel="stylesheet" href="/css/Direccion.css">
     <title>Inicio</title>
 </head>
 
@@ -14,7 +14,7 @@
                 <section class="menu__container">
 
                     <ul class="menu__links">
-                        <li class="menu__logo"><img class="menu__logo__img" src="./img/LofiSpot (1).png" alt=""></li>
+                        <li class="menu__logo"><img class="menu__logo__img" src="/img/LofiSpot (1).png" alt=""></li>
 
                         <li class="menu__item">
                             <a href="#" class="menu__link">Home</a>
@@ -23,18 +23,6 @@
                             <a href="mailto:lofispots@gmail.com" class="menu__link">Contact</a>
                         </li>
 
-                        <li class="menu__item">
-                            <a href="#" class="menu__link">Categoria <img src="~/assets/arrow.svg" class="menu__arrow"></a>
-
-                            <ul class="menu__nesting">
-                                @foreach (var item in ViewBag.Categoria)
-                                {
-                                    <li class="menu__inside">
-                                        <a href="#@item.Categoria" class="menu__link menu__link--inside">@item.Categoria</a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
                     </ul>
 
                     <div class="menu__others">
@@ -42,25 +30,25 @@
                             <div class="menu__user"></div>
 
                             <ul class="menu__nesting__user">
-                                @if (ViewBag.usercount != 0)
-                                {
-                                    @foreach (var item in ViewBag.user)
+                                @*@if (ViewBag.usercount != 0)
                                     {
-                                        <li class="menu__inside__user">
-                                            <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@item.Nick</div>
-                                        </li>
-                                        <li class="separador__nombreusu"></li>
-                                        <li class="menu__inside__user">
-                                            <a href="/Usuario/CerrarSesion" class="menu__link__nameusu menu__link__nameusu--inside">Cerrar Sesion</a>
-                                        </li>
+                                        @foreach (var item in ViewBag.user)
+                                        {*@
+                                <li class="menu__inside__user">
+                                    <div href="#" class="menu__link__nameusu menu__link__nameusu--inside">@*@item.Nick*@</div>
+                                </li>
+                                <li class="separador__nombreusu"></li>
+                                <li class="menu__inside__user">
+                                    <a href="/Usuario/CerrarSesion" class="menu__link__nameusu menu__link__nameusu--inside">Cerrar Sesion</a>
+                                </li>
+                                @*}
                                     }
-                                }
-                                else
-                                {
-                                    <li class="menu__inside">
-                                        <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
-                                    </li>
-                                }
+                                    else
+                                    {*@
+                                <li class="menu__inside">
+                                    <a href="/Usuario/Login" class="menu__link__user menu__link__user--inside">Login</a>
+                                </li>
+                                @*}*@
                             </ul>
                         </div>
 
@@ -70,20 +58,25 @@
         </div>
     </header>
 
-    <form action="/Usuario/Direccion" method="post">
-        <input type="text" name="Departamento" class="form__input" placeholder="Departamento" required>
-        <br />
-        <br />
-        <input type="text" name="Localidad" class="form__input" placeholder="Localidad" required>
-        <br />
-        <br />
-        <input type="number" name="CP" class="form__input" placeholder="Codigo Postal" required>
-        <br />
-        <br />
-        <input type="submit" class="form__button" value="Registrar direccion">
-    </form>
+    <h1>Direccion</h1>
+    <div class="separador3"></div>
+    <div class="contenedor">
+        <form action="/Usuario/Direccion" method="post" class="cont__form">
+            <label class="form__label">Departamento: </label>
+            <input type="text" name="Departamento" class="form__input" placeholder="Departamento" required>
 
-    <div class="separadorFormFooter"></div>
+            <label class="form__label">Localidad: </label>
+            <input type="text" name="Localidad" class="form__input" placeholder="Localidad" required>
+
+            <label class="form__label">Codigo Postal: </label>
+            <input type="number" name="CP" class="form__input" placeholder="Codigo Postal" required>
+
+            <input type="submit" class="form__button" value="Registrar direccion">
+        </form>
+    </div>
+    
+    <div class="separador4"></div>
+
     <footer>
         <div class="footer__link">
             <a href="#inicio" class="footer__inicio">Inicio de página</a>
@@ -97,7 +90,7 @@
             <span class="footer__span">7645-2343</span>
             <div class="separador__contact"></div>
             <div class="footer__SocialNetwork">
-                <a href="https://www.facebook.com/profile.php?id=100074944750786" target="_blank"><img src="./img/facebook.png" class="footer__icon"></a>
+                <a href="https://www.facebook.com/profile.php?id=100074944750786" target="_blank"><img src="/img/facebook.png" class="footer__icon"></a>
 
                 <a href="mailto:lofispots@gmail.com"><img src="/img/gmail-logo.png" class="footer__icon"></a>
                 <br />
