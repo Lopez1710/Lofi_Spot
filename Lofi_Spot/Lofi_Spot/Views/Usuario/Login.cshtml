@@ -45,16 +45,12 @@
                           <img src="/assets/lock.svg" alt="" class="form__logoin">
                       </div>
                       <div class="form__img__div__Relleno"></div>
-                      <input type="text" name="Pass" class="form__input" placeholder="Password">
+                      <input type="password" name="Pass" class="form__input" placeholder="Password">
                       @if (ViewBag.error == 1)
                       {
                           <label class="text-white">Password Incorrecta</label>
                       }
                   </div>
-
-            <label class="form-check-label form__label form__label__check">
-                <input class="form-check-input" type="checkbox" id="form__checkid"> Visible password
-            </label>
 
             <input type="submit" class="form__button" value="Enter">
         }
